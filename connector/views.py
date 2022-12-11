@@ -41,3 +41,11 @@ class RescueSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('profiles')
+
+
+class ProfileList(LoginRequiredMixin, generic.ListView):
+    model = Profile
+    queryset = Profile.objects.filter(status=0) | Profile.objects.filter(status=1)
+    context_object_name = 'profiles'
+    template_name = 'index.html'
+    paginate_by = 50
