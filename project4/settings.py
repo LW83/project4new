@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'crispy_forms',
     'connector',
 ]
 
@@ -145,3 +146,8 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'connector.User'
+
+LOGIN_REDIRECT_URL = 'profiles'
+LOGOUT_REDIRECT_URL = 'homepage'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -21,8 +21,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('connector.urls'), name='connector_urls'),
     path('accounts/', include('django.contrib.auth.urls')),
-    # path('accounts/signup/', connector.SignUpView.as_view(), name='signup'),
-    # path('accounts/login/', .as_view(), name='login'),
-    # path('accounts/signup/rescue/', .as_view(), name='rescue_signup'),
-    # path('accounts/signup/pound/', .as_view(), name='pound_signup'),
 ]

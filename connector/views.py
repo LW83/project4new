@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView
-from .models import User
-from .forms import PoundSignUpForm
+from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, ListView
+from .models import User, Profile
+from .forms import PoundSignUpForm, RescueSignUpForm
 
 # Create your views here.
 class homeview(TemplateView):
@@ -10,7 +10,11 @@ class homeview(TemplateView):
 
 
 class RegisterView(TemplateView):
-    template_name = 'account_signup.html'
+    template_name = 'signup.html'
+
+
+class LoginView(TemplateView):
+    template_name = 'login.html'
 
 
 class PoundSignUpView(CreateView):
@@ -43,9 +47,9 @@ class RescueSignUpView(CreateView):
         return redirect('profiles')
 
 
-class ProfileList(LoginRequiredMixin, generic.ListView):
+class ProfileList(ListView):
     model = Profile
     queryset = Profile.objects.filter(status=0) | Profile.objects.filter(status=1)
     context_object_name = 'profiles'
-    template_name = 'index.html'
+    template_name = 'profiles.html'
     paginate_by = 50
