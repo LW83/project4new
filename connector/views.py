@@ -15,10 +15,6 @@ class RegisterView(TemplateView):
     template_name = 'signup.html'
 
 
-# class LoginView(TemplateView):
-    # template_name = 'login.html'
-
-
 class PoundSignUpView(CreateView):
     model = User
     form_class = PoundSignUpForm
@@ -68,7 +64,6 @@ class CreateProfile(CreateView):
             "create_profile.html",
             {
                 "profile_form": ProfileForm,
-                # "viewer_access": check_viewer_exists(request)
             }
         )
 
@@ -89,43 +84,39 @@ class CreateProfile(CreateView):
             "create_profile.html",
             {
                 "profile_form": profile_form,
-                # "viewer_access": check_viewer_exists(request)
             }
         )
 
 
-# class CreatorProfile(LoginRequiredMixin, View):
-#     """
-#     Class to display pages belonging to logged in user.
-#     """
-#     def get(self, request):
-#         creator_pages = Page.objects.filter(creator=request.user) \
-#                         .values_list('title', flat=True)
-#         creator_page_list = Page.objects.filter(title__in=creator_pages)
+class EditProfile(UpdateView):
+    """
+    Class to allow pound users to update a profile.
+    """
+    def get(self, request, profile_id):
+        profile_to_edit = get_object_or_404(Profile, profile_id=profile_id)
+        edit_profile_form = ProfileForm(instance=profile_to_edit)
+        if profile_to_edit.creator == request.user:
+            return render(
+                request,
+                "edit_page.html",
+                {
+                    "edit_page_form": edit_page_form,
+                }
+            )
+        else:
+            return redirect('profiles') 
 
-#         return render(
-#             request,
-#             "creator_profile.html",
-#             {
-#                 "creator_page_list": creator_page_list,
-#                 "viewer_access": check_viewer_exists(request)
-#             }
-#         )
+    def post(self, request, profile_id):
+        profile_to_edit = get_object_or_404(Profile, profile_id=profile_id)
+        edit_page_form = ProfileForm(
+                         request.POST, request.FILES, instance=profile_to_edit)
+        if profile_to_edit.creator == request.user:
+            if edit_profile_form.is_valid():
+                edit_profile_form.save()
+                messages.success(request, 'Page updated successfully.')
+                return redirect('profiles')
+            else:
+                messages.error(request,
+                               'Update unsuccessful, please try again.')
+                return redirect('profiles')
 
-# class ViewerProfile(LoginRequiredMixin, View):
-#     """
-#     Class to display pages assigned to logged in viewer.
-#     """
-#     def get(self, request):
-#         v_pages = ViewerAccess.objects.filter(viewer_email=request.user.email)\
-#                   .values_list('allowed_page', flat=True)
-#         viewer_page_list = Page.objects.filter(slug__in=v_pages)
-
-#         return render(
-#             request,
-#             "viewer_profile.html",
-#             {
-#                 "viewer_page_list": viewer_page_list,
-#                 "viewer_access": check_viewer_exists(request)
-#             }
-#         )

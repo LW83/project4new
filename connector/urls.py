@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/signup/pound/', views.PoundSignUpView.as_view(), name='pound_signup'),
     path('profiles/', views.ProfileList.as_view(), name='profiles'),
     path('create_profile/', views.CreateProfile.as_view(), name='create_profile'),
+    path('edit_profile/', views.EditProfile.as_view(), name='edit_profile'),
 ]
