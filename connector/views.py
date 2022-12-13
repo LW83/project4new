@@ -92,31 +92,64 @@ class EditProfile(UpdateView):
     """
     Class to allow pound users to update a profile.
     """
-    def get(self, request, profile_id):
-        profile_to_edit = get_object_or_404(Profile, profile_id=profile_id)
+    def get(self, request, id):
+        profile_to_edit = get_object_or_404(Profile, id=id)
         edit_profile_form = ProfileForm(instance=profile_to_edit)
         if profile_to_edit.creator == request.user:
             return render(
                 request,
-                "edit_page.html",
+                "edit_profile.html",
                 {
-                    "edit_page_form": edit_page_form,
+                    "edit_profile_form": edit_profile_form,
                 }
             )
         else:
             return redirect('profiles') 
 
-    def post(self, request, profile_id):
-        profile_to_edit = get_object_or_404(Profile, profile_id=profile_id)
+    def post(self, request, id):
+        profile_to_edit = get_object_or_404(Profile, id=id)
         edit_page_form = ProfileForm(
                          request.POST, request.FILES, instance=profile_to_edit)
         if profile_to_edit.creator == request.user:
             if edit_profile_form.is_valid():
                 edit_profile_form.save()
-                messages.success(request, 'Page updated successfully.')
+                messages.success(request, 'Profile updated successfully.')
                 return redirect('profiles')
             else:
                 messages.error(request,
-                               'Update unsuccessful, please try again.')
+                               'Profile update unsuccessful, please try again.')
+                return redirect('profiles')
+
+
+class DeleteProfile(DeleteView):
+    """
+    Class to allow pound users to delete a profile.
+    """
+    def get(self, request, id):
+        profile_to_delete = get_object_or_404(Profile, id=id)
+        delete_profile_form = ProfileForm(instance=profile_to_delete)
+        if profile_to_delete.creator == request.user:
+            return render(
+                request,
+                "delete_profile.html",
+                {
+                    "delete_profile_form": delete_profile_form,
+                }
+            )
+        else:
+            return redirect('profiles') 
+
+    def post(self, request, id):
+        profile_to_delete = get_object_or_404(Profile, id=id)
+        delete_profile_form = ProfileForm(
+                         request.POST, request.FILES, instance=profile_to_delete)
+        if profile_to_delete.creator == request.user:
+            if delete_profile_form.is_valid():
+                delete_profile_form.save()
+                messages.success(request, 'Profile was successfully deleted.')
+                return redirect('profiles')
+            else:
+                messages.error(request,
+                               'Profile deletion unsuccessful, please try again.')
                 return redirect('profiles')
 
