@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import login
+from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, ListView
 from .models import User, Profile
@@ -71,7 +72,7 @@ class CreateProfile(CreateView):
         profile_form = ProfileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             create_profile = profile_form.save(commit=False)
-            create_profile.creator = request.user
+            create_profile.pound = request.user
             create_profile.save()
             messages.success(request, 'Profile created successfully.')
             return redirect('profiles')
@@ -95,7 +96,7 @@ class EditProfile(UpdateView):
     def get(self, request, id):
         profile_to_edit = get_object_or_404(Profile, id=id)
         edit_profile_form = ProfileForm(instance=profile_to_edit)
-        if profile_to_edit.creator == request.user:
+        if profile_to_edit.pound == request.user:
             return render(
                 request,
                 "edit_profile.html",
@@ -108,9 +109,9 @@ class EditProfile(UpdateView):
 
     def post(self, request, id):
         profile_to_edit = get_object_or_404(Profile, id=id)
-        edit_page_form = ProfileForm(
+        edit_profile_form = ProfileForm(
                          request.POST, request.FILES, instance=profile_to_edit)
-        if profile_to_edit.creator == request.user:
+        if profile_to_edit.pound == request.user:
             if edit_profile_form.is_valid():
                 edit_profile_form.save()
                 messages.success(request, 'Profile updated successfully.')
@@ -128,7 +129,7 @@ class DeleteProfile(DeleteView):
     def get(self, request, id):
         profile_to_delete = get_object_or_404(Profile, id=id)
         delete_profile_form = ProfileForm(instance=profile_to_delete)
-        if profile_to_delete.creator == request.user:
+        if profile_to_delete.pound == request.user:
             return render(
                 request,
                 "delete_profile.html",
@@ -137,13 +138,13 @@ class DeleteProfile(DeleteView):
                 }
             )
         else:
-            return redirect('profiles') 
+            return redirect('profiles')
 
     def post(self, request, id):
         profile_to_delete = get_object_or_404(Profile, id=id)
         delete_profile_form = ProfileForm(
                          request.POST, request.FILES, instance=profile_to_delete)
-        if profile_to_delete.creator == request.user:
+        if profile_to_delete.pound == request.user:
             if delete_profile_form.is_valid():
                 delete_profile_form.save()
                 messages.success(request, 'Profile was successfully deleted.')
@@ -153,3 +154,50 @@ class DeleteProfile(DeleteView):
                                'Profile deletion unsuccessful, please try again.')
                 return redirect('profiles')
 
+
+class MyDashboard(TemplateView):
+    template_name = 'pound_dashboard.html'
+
+
+class MyProfileList(ListView):
+    model = Profile
+    template_name = 'pound_my_current_dogs.html'
+
+    def get_queryset(self):
+        return Profile.objects.filter(
+           Q(status=0) | Q(status=1),
+           pound=self.request.user,
+        )
+
+
+class MyPreviousProfileList(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = 'pound_my_previous_dogs.html'
+    
+    def get_queryset(self):
+        return Profile.objects.filter(
+           Q(status=3) | Q(status=4) | Q(status=5) | Q(status=6) | Q(status=7),
+           pound=self.request.user,
+        )
+
+
+class MyBookingList(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = 'pound_my_bookings.html'
+    
+    def get_queryset(self):
+        return Profile.objects.filter(
+           Q(status=2),
+           pound=self.request.user,
+        )
+
+
+class MyProposedBookingList(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = 'pound_my_proposed_bookings.html'
+    
+    def get_queryset(self):
+        return Profile.objects.filter(
+           Q(status=8),
+           pound=self.request.user,
+        )

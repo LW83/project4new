@@ -4,34 +4,18 @@
 
 {% if user.is_authenticated %}
 
-<div class="text-center m-2">
-    <h2 class="heading">My User Dashboard</h2>
-    <a class="profile-link" href="{% %}">Create Profile</a>
-    <br>
-    <a class="profile-link" href="{% %}">Edit Profile</a>
-    <br>
-    <a class="profile-link" href="{% %}">Delete Profile</a>
-</div>
+    <div class="text-center m-2">
+        <h2 class="heading">My Dashboard</h2>
+    </div>
 
-<div class="row justify-content-center">
-{% for profile in profile_list %}
-        <!-- <div class="card m-2">
-            <a class="card-title" href="{% url 'creator_page' page.slug %}">{{ page.title }}</a>
-            {% if 'placeholder' in page.image %}
-            {% cloudinary page.image.placeholder.png %}
-            {% else %}
-            {% cloudinary page.image %}
-            {% endif %}
-        </div>
-        {% if forloop.counter|divisibleby:3 %}
-        <div class="row justify-content-center">
-            {% endif %}
-            {% endfor %}
-        </div> -->
-</div>
+    <p class="lead">Please select what you wish to view:</p>
+    <a href="{% url 'my_current_dogs' %}" class="btn btn-lg" role="button">My Current Dogs</a>
+    <a href="{% url 'my_previous_dogs' %}" class="btn btn-lg" role="button">My Previous Dogs</a>
+    <a href="{% url 'my_booked_dogs' %}" class="btn btn-lg" role="button">My Booked Dogs</a>
+    <a href="{% url 'my_proposed_bookings' %}" class="btn btn-lg" role="button">My Proposed Bookings</a>
 
 {% else %}
-<p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'account_login' %}">here.</a></p>
+<p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
 {% endif %}
 
 {%endblock%}

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'crispy_forms',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
     'connector',
 ]
 
@@ -147,7 +149,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'connector.User'
 
-LOGIN_REDIRECT_URL = 'profiles'
+LOGIN_REDIRECT_URL = 'my_dashboard'
 LOGOUT_REDIRECT_URL = 'homepage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
