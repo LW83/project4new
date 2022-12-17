@@ -15,8 +15,14 @@ Add calendar to select dates: https://django-bootstrap-datepicker-plus.readthedo
 Delete button: https://stackoverflow.com/questions/60616526/how-to-add-delete-button-in-each-row-of-my-table
 Delete button: https://stackoverflow.com/questions/55705666/django-tables2-with-edit-and-delete-buttons-how-to-do-it-properly
 
+Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
+
  <!-- {% empty %}
         <div>You have no profiles in this list.</div> -->
+
+Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
+
+Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
 
 
 POSSIBLE: 

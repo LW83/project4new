@@ -8,7 +8,6 @@
         <h2 class="heading">My Current Dogs</h2>
     </div>
 
-    <h2>My Current Dogs</h2>
     <table class="table table-hover table-bordered table-sm">
         <tr>
             <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
@@ -33,6 +32,8 @@
                 <td>{{ Profile.hold_date }}</td>
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
+                <td><a href="{% url 'edit_profile' Profile.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><i class="fa-solid fa-trash"></i></td>
             </tr>
             {% endfor %}
     </table>
