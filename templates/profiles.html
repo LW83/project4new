@@ -28,6 +28,7 @@
             <td>{{ Profile.hold_date }}</td>
             <td>{{ Profile.get_status_display }}</td>
             <td>{{ Profile.get_urgency_display }}</td>
+            <td><a href="{% url 'create_booking' Profile.pk %}"><i class="fa-solid fa-hand-holding-heart"></i> Rescue Me </a></td>
         </tr>
     {% endfor %}
 </table>

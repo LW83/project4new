@@ -24,6 +24,9 @@ Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i
 
 Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
 
+Phone numbers: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field
+https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
+
 
 POSSIBLE: 
 Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr

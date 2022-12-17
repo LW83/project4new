@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from bootstrap_datepicker_plus.widgets import DatePickerInput
-from .models import User, Profile
+from .models import User, Profile, Booking
 
 class PoundSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
@@ -38,8 +38,24 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('dog_breed', 'gender', 'approx_age', 'neutered', 'microchipped', 'circumstance', 'pound_entry_date', 'hold_date', 'status', 'urgency')
         widgets = {
-            'pound_entry_date':DatePickerInput(), 
-            'hold_date':DatePickerInput(),
+            'pound_entry_date': DatePickerInput(), 
+            'hold_date': DatePickerInput(),
+        }
+
+        """
+        From keelback-code - out-proud
+        """
+        def form_valid(self, form):
+            form.instance.created_by = self.request.user
+            return super().form_valid(form)
+
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ('collection_date', 'phone_number')
+        widgets = {
+            'collection_date': DatePickerInput(), 
         }
 
         """

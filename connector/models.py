@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 COUNTY = ((0, "Antrim"), (1, "Armagh"), (2, "Carlow"), (3, "Cavan"), (4, "Clare"), (5, "Cork"), (6, "Derry"), (7, "Donegal"), (8, "Down"), (9, "Dublin"), (10, "Fermanagh"), (11, "Galway"), (12, "Kerry"), (13, "Kildare"), (14, "Kilkenny"), (15, "Laois"), (16, "Leitrim"), (17, "Limerick"), (18, "Longford"), (19, "Louth"), (20, "Mayo"), (21, "Meath"), (22, "Monaghan"), (23, "Offaly"), (24, "Roscommon"), (25, "Sligo"), (26, "Tipperary"), (27, "Tyrone"), (28, "Waterford"), (29, "Westmeath"), (30, "Wexford"), (31, "Wicklow"))
@@ -37,3 +38,12 @@ class Profile(models.Model):
 
     class Meta:
         ordering = ['-urgency', 'profile_added']
+
+
+class Booking(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='dog_booking')
+    rescue = models.ForeignKey(User, on_delete=models.CASCADE, related_name='rescue_name')
+    collection_date = models.DateField()
+    phone_number = PhoneNumberField(null=False, blank=False)
+    approved = models.BooleanField(default=False)
+

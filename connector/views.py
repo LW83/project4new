@@ -4,8 +4,8 @@ from django.contrib.auth import login
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, ListView
-from .models import User, Profile
-from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm
+from .models import User, Profile, Booking
+from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
 
 # Create your views here.
 class homeview(TemplateView):
@@ -78,7 +78,7 @@ class CreateProfile(CreateView):
             return redirect('profiles')
         else:
             messages.error(request, 'Profile not saved, please try again.')
-            page_form = ProfileForm()
+            profile_form = ProfileForm()
 
         return render(
             request,
@@ -136,39 +136,6 @@ class DeleteProfile(DeleteView):
             return redirect('my_current_dogs')
 
 
-# class DeleteProfile(DeleteView):
-#     """
-#     Class to allow pound users to delete a profile.
-#     """
-#     def get(self, request, id):
-#         profile_to_delete = get_object_or_404(Profile, id=id)
-#         delete_profile_form = ProfileForm(instance=profile_to_delete)
-#         if profile_to_delete.pound == request.user:
-#             return render(
-#                 request,
-#                 "delete_profile.html",
-#                 {
-#                     "delete_profile_form": delete_profile_form,
-#                 }
-#             )
-#         else:
-#             return redirect('profiles')
-
-#     def post(self, request, id):
-#         profile_to_delete = get_object_or_404(Profile, id=id)
-#         delete_profile_form = ProfileForm(
-#                          request.POST, request.FILES, instance=profile_to_delete)
-#         if profile_to_delete.pound == request.user:
-#             if delete_profile_form.is_valid():
-#                 delete_profile_form.save()
-#                 messages.success(request, 'Profile was successfully deleted.')
-#                 return redirect('profiles')
-#             else:
-#                 messages.error(request,
-#                                'Profile deletion unsuccessful, please try again.')
-#                 return redirect('profiles')
-
-
 class MyDashboard(TemplateView):
     template_name = 'pound_dashboard.html'
 
@@ -187,7 +154,7 @@ class MyProfileList(ListView):
 class MyPreviousProfileList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_previous_dogs.html'
-    
+
     def get_queryset(self):
         return Profile.objects.filter(
            Q(status=3) | Q(status=4) | Q(status=5) | Q(status=6) | Q(status=7),
@@ -198,7 +165,7 @@ class MyPreviousProfileList(LoginRequiredMixin, ListView):
 class MyBookingList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_bookings.html'
-    
+
     def get_queryset(self):
         return Profile.objects.filter(
            Q(status=2),
@@ -209,9 +176,41 @@ class MyBookingList(LoginRequiredMixin, ListView):
 class MyProposedBookingList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_proposed_bookings.html'
-    
+
     def get_queryset(self):
         return Profile.objects.filter(
            Q(status=8),
            pound=self.request.user,
+        )
+
+
+class BookingRequest(CreateView):
+    def get(self, request, *args, **kwargs):
+
+        return render(
+            request,
+            "create_booking.html",
+            {
+                "booking_form": BookingForm,
+            }
+        )
+
+    def post(self, request, *args, **kwargs):
+        booking_form = BookingForm(request.POST, request.FILES)
+        if booking_form.is_valid():
+            create_booking = booking_form.save(commit=False)
+            create_booking.rescue = request.user
+            create_booking.save()
+            messages.success(request, 'Booking requested successfully.')
+            return redirect('profiles')
+        else:
+            messages.error(request, 'Booking not saved, please try again.')
+            booking_form = BookingForm()
+
+        return render(
+            request,
+            "create_booking.html",
+            {
+                "booking_form": booking_form,
+            }
         )
