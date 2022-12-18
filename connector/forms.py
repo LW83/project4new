@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from bootstrap_datepicker_plus.widgets import DatePickerInput
+from phonenumber_field.formfields import PhoneNumberField
 from .models import User, Profile, Booking
 
 class PoundSignUpForm(UserCreationForm):
@@ -38,7 +39,7 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ('dog_breed', 'gender', 'approx_age', 'neutered', 'microchipped', 'circumstance', 'pound_entry_date', 'hold_date', 'status', 'urgency')
         widgets = {
-            'pound_entry_date': DatePickerInput(), 
+            'pound_entry_date': DatePickerInput(),
             'hold_date': DatePickerInput(),
         }
 
@@ -55,7 +56,7 @@ class BookingForm(forms.ModelForm):
         model = Booking
         fields = ('collection_date', 'phone_number')
         widgets = {
-            'collection_date': DatePickerInput(), 
+            'collection_date': DatePickerInput(),
         }
 
         """

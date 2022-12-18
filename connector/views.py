@@ -19,7 +19,7 @@ class RegisterView(TemplateView):
 class PoundSignUpView(CreateView):
     model = User
     form_class = PoundSignUpForm
-    template_name = 'pound_signup.html'
+    template_name = 'signuppage.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'pound'
@@ -33,8 +33,8 @@ class PoundSignUpView(CreateView):
 
 class RescueSignUpView(CreateView):
     model = User
-    form_class = PoundSignUpForm
-    template_name = 'rescue_signup.html'
+    form_class = RescueSignUpForm
+    template_name = 'signuppage.html'
 
     def get_context_data(self, **kwargs):
         kwargs['user_type'] = 'rescue'
@@ -183,9 +183,40 @@ class MyProposedBookingList(LoginRequiredMixin, ListView):
            pound=self.request.user,
         )
 
+# class MyProposedBookingList(LoginRequiredMixin, ListView):
+
+#     def get(self, request, id):
+#         profile = get_object_or_404(Profile, id=id).filter(status=8)
+#         bookings = profile.dog_booking(instance=profile)
+
+#         return render(
+#             request,
+#             "my_proposed_bookings.html",
+#             {
+#                 "profile": profile,
+#                 "bookings": bookings,
+#             },
+#         )
+    
+#     def post(self, request, id):
+
+#         profile = get_object_or_404(Profile, id=id).filter(status=8)
+#         bookings = profile.dog_booking(instance=profile)
+
+#         return render(
+#             request,
+#             "my_proposed_bookings.html",
+#             {
+#                 "profile": profile,
+#                 "bookings": bookings,
+#             },
+#         )
+
 
 class BookingRequest(CreateView):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, id):
+        profile_to_book = get_object_or_404(Profile, id=id)
+        booking_form = BookingForm(instance=profile_to_book)
 
         return render(
             request,
@@ -195,11 +226,13 @@ class BookingRequest(CreateView):
             }
         )
 
-    def post(self, request, *args, **kwargs):
-        booking_form = BookingForm(request.POST, request.FILES)
+    def post(self, request, id):
+        profile_to_book = get_object_or_404(Profile, id=id)
+        booking_form = BookingForm(request.POST, request.FILES, instance=profile_to_book)
         if booking_form.is_valid():
             create_booking = booking_form.save(commit=False)
             create_booking.rescue = request.user
+            profile_to_book.status = 8
             create_booking.save()
             messages.success(request, 'Booking requested successfully.')
             return redirect('profiles')

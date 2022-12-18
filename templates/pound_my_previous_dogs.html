@@ -11,7 +11,7 @@
     <table class="table table-hover table-bordered table-sm">
         <tr>
             <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
-            <th>Pound</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
+            <th>Breed</th><th>Gender</th><th>Appox Age</th>
             <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
             <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
             <th>Urgency</th>
@@ -21,7 +21,6 @@
                 <td>{{ Profile.pk }}</td>
                 <td>{{ Profile.profile_added }}</td>
                 <td>{{ Profile.last_updated }}</td>
-                <td>{{ Profile.pound }}</td>
                 <td>{{ Profile.dog_breed }}</td>
                 <td>{{ Profile.get_gender_display }}</td>
                 <td>{{ Profile.get_approx_age }}</td>
@@ -32,6 +31,8 @@
                 <td>{{ Profile.hold_date }}</td>
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
+                <td><a href="{% url 'edit_profile' Profile.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="{% url 'delete_profile' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             {% endfor %}
     </table>

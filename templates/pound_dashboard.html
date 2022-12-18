@@ -4,16 +4,24 @@
 
 {% if user.is_authenticated %}
 
-    <div class="text-center m-2">
-        <h2 class="heading">My Dashboard</h2>
-    </div>
+        <div class="text-center m-2">
+            <h2 class="heading">My Dashboard</h2>
+        </div>
 
-    <p class="lead">Please select what you wish to view:</p>
-    <a href="{% url 'my_current_dogs' %}" class="btn btn-lg" role="button">My Current Dogs</a>
-    <a href="{% url 'my_previous_dogs' %}" class="btn btn-lg" role="button">My Previous Dogs</a>
-    <a href="{% url 'my_booked_dogs' %}" class="btn btn-lg" role="button">My Booked Dogs</a>
-    <a href="{% url 'my_proposed_bookings' %}" class="btn btn-lg" role="button">My Proposed Bookings</a>
-    <a href="{% url 'create_profile' %}" class="btn btn-lg" role="button">Add a Dog</a>
+        {% if user.is_pound %}
+        <p class="lead">Please select what you wish to view:</p>
+        <a href="{% url 'my_current_dogs' %}" class="btn btn-lg" role="button">My Current Dogs</a>
+        <a href="{% url 'my_previous_dogs' %}" class="btn btn-lg" role="button">My Previous Dogs</a>
+        <a href="{% url 'my_booked_dogs' %}" class="btn btn-lg" role="button">My Booked Dogs</a>
+        <a href="{% url 'my_proposed_bookings' %}" class="btn btn-lg" role="button">My Proposed Bookings</a>
+        <a href="{% url 'create_profile' %}" class="btn btn-lg" role="button">Add a Dog</a>
+
+        {% elif user.is_rescue %}
+        <p class="lead">Please select what you wish to view:</p>
+        <a href="{% url 'my_booked_dogs' %}" class="btn btn-lg" role="button">My Booked Dogs</a>
+        <a href="{% url 'my_proposed_bookings' %}" class="btn btn-lg" role="button">My Proposed Bookings</a>
+
+        {% endif %}
 
 {% else %}
 <p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
