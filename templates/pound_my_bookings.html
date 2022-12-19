@@ -14,7 +14,8 @@
             <th>Breed</th><th>Gender</th><th>Appox Age</th>
             <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
             <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
-            <th>Urgency</th>
+            <th>Urgency</th><th>Booking Rescue</th><th>Contact Number</th>
+            <th>Collection Date</th><th>Edit Booking</th><th>Delete Booking</th>
         </tr>
     {% for Profile in object_list %}
             <tr>
@@ -31,6 +32,8 @@
                 <td>{{ Profile.hold_date }}</td>
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
+                <td></td>
+                <td><a href="{% url 'delete_booking' Booking.pk %}"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             {% endfor %}
     </table>

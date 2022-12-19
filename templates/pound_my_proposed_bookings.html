@@ -15,7 +15,7 @@
             <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
             <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
             <th>Urgency</th><th>Booking Rescue</th><th>Contact Number</th>
-            <th>Proposed Collection</th>
+            <th>Proposed Collection</th><th>Accept Booking</th><th>Reject Booking</th>
         </tr>
     {% for Profile in object_list %}
             <tr>
@@ -36,7 +36,7 @@
                 <td>{{ Profile.dog_bookings.phone_number }}</td>
                 <td>{{ Profile.dog_bookings.collection_date }}</td>
                 <td><a href="{% url 'accept_booking' Profile.pk %}" class="btn" role="button">Accept</a></td>
-                <!-- <td><a href="{% url 'delete_profile' Profile.pk %}">Reject</a></td> -->
+                <td><a href="{% url 'reject_booking' Profile.pk %}" class="btn" role="button">Reject</a></td>
             </tr>
     {% endfor %}     
     </table>

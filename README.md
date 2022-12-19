@@ -32,6 +32,8 @@ Amending Admin to bring in additional fields: https://stackoverflow.com/question
 
 Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint
 
+To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
+
 
 POSSIBLE: 
 Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
