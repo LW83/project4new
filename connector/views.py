@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, DeleteView, TemplateView, ListView
+from django.views.generic import View, CreateView, UpdateView, DeleteView, TemplateView, ListView
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
 
@@ -183,35 +183,6 @@ class MyProposedBookingList(LoginRequiredMixin, ListView):
            pound=self.request.user,
         )
 
-# class MyProposedBookingList(LoginRequiredMixin, ListView):
-
-#     def get(self, request, id):
-#         profile = get_object_or_404(Profile, id=id).filter(status=8)
-#         bookings = profile.dog_booking(instance=profile)
-
-#         return render(
-#             request,
-#             "my_proposed_bookings.html",
-#             {
-#                 "profile": profile,
-#                 "bookings": bookings,
-#             },
-#         )
-    
-#     def post(self, request, id):
-
-#         profile = get_object_or_404(Profile, id=id).filter(status=8)
-#         bookings = profile.dog_booking(instance=profile)
-
-#         return render(
-#             request,
-#             "my_proposed_bookings.html",
-#             {
-#                 "profile": profile,
-#                 "bookings": bookings,
-#             },
-#         )
-
 
 class BookingRequest(CreateView):
     def get(self, request, id):
@@ -228,11 +199,12 @@ class BookingRequest(CreateView):
 
     def post(self, request, id):
         profile_to_book = get_object_or_404(Profile, id=id)
-        booking_form = BookingForm(request.POST, request.FILES, instance=profile_to_book)
+        booking_form = BookingForm(request.POST, request.FILES)
         if booking_form.is_valid():
             create_booking = booking_form.save(commit=False)
             create_booking.rescue = request.user
             profile_to_book.status = 8
+            create_booking.profile = profile_to_book
             create_booking.save()
             messages.success(request, 'Booking requested successfully.')
             return redirect('profiles')
@@ -247,3 +219,22 @@ class BookingRequest(CreateView):
                 "booking_form": booking_form,
             }
         )
+
+
+class AcceptBooking(CreateView):
+
+    def get(self, request, id):
+        profile_to_update = get_object_or_404(Profile, id=id)
+        return
+        profile_to_update
+
+    def post(self, request, id):
+        profile_to_update = get_object_or_404(Profile, id=id)
+        if profile_to_update.pound == self.request.user:
+            profile_to_update.status = 2
+            messages.success(request, 'Booking accepted successfully.')
+            return redirect('my_current_dogs')
+        else:
+            messages.error(request,
+            'Booking has not been accepted, please try again.')
+            return redirect('my_current_dogs')

@@ -49,6 +49,6 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 @admin.register(Booking)
-class ProfileAdmin(admin.ModelAdmin):
+class BookingAdmin(admin.ModelAdmin):
     list_display = ('rescue', 'collection_date', 'phone_number', 'profile')
     search_fields = ['rescue']

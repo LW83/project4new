@@ -58,10 +58,3 @@ class BookingForm(forms.ModelForm):
         widgets = {
             'collection_date': DatePickerInput(),
         }
-
-        """
-        From keelback-code - out-proud
-        """
-        def form_valid(self, form):
-            form.instance.created_by = self.request.user
-            return super().form_valid(form)

@@ -17,4 +17,5 @@ urlpatterns = [
     path('my_dashboard/my_booked_dogs', views.MyBookingList.as_view(), name='my_booked_dogs'),
     path('my_dashboard/my_proposed_bookings', views.MyProposedBookingList.as_view(), name='my_proposed_bookings'),
     path('create_booking/<int:id>', views.BookingRequest.as_view(), name='create_booking'),
+    path('accept_booking/<int:id>', views.AcceptBooking.as_view(), name='accept_booking'),
 ]

@@ -30,6 +30,8 @@ Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
 
 Amending Admin to bring in additional fields: https://stackoverflow.com/questions/48011275/custom-user-model-fields-abstractuser-not-showing-in-django-admin
 
+Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint
+
 
 POSSIBLE: 
 Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
@@ -272,4 +274,5 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
  - In addition a big thank you to the following people for their assistance or inspiration in this project:
      - Kasia Bogucka: Our cohort facilitator for keeping us all on track and answering all and any of the many questions!
      - My cohort: For our weekly checkins and tips
+     - The genius Ger in Tutor Support for helping me resolve an issue where the information from the booking model was submitting but not displaying in the booking model in Admin. 
 
