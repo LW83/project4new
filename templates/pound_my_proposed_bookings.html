@@ -4,7 +4,7 @@
 
 {% if user.is_authenticated %}
 
-    <div class="text-center m-2">
+    <div class="text-center mt-4 mb-4">
         <h2 class="heading">My Proposed Bookings</h2>
     </div>
 
@@ -33,12 +33,12 @@
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
                 {% for dog_booking in Profile.dog_booking.all %}
-                    <td>{{ Profile.dog_booking.rescue }}</td>
-                    <td>{{ Profile.dog_booking.phone_number }}</td>
-                    <td>{{ Profile.dog_booking.collection_date }}</td>
+                    <td>{{ dog_booking.rescue }}</td>
+                    <td>{{ dog_booking.phone_number }}</td>
+                    <td>{{ dog_booking.collection_date }}</td>
                 {% endfor %}
-                <td><a href="{% url 'accept_booking' Profile.pk %}" class="btn" role="button">Accept</a></td>
-                <td><a href="{% url 'reject_booking' Profile.pk %}" class="btn" role="button">Reject</a></td>
+                <td><a href="{% url 'accept_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button">Accept</a></td>
+                <td><a href="{% url 'reject_booking' Profile.pk %}" class="btn btn-sm btn-danger" role="button">Reject</a></td>
             </tr>
     {% endfor %}     
     </table>

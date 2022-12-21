@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, CreateView, UpdateView, DeleteView, TemplateView, ListView
+from itertools import chain
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
 
@@ -253,7 +254,7 @@ def AcceptBooking(request, id):
         return redirect('my_proposed_bookings')
 
 
-# View to allow pound user to reject a booking request
+# View to allow pound user to reject a booking request - NEED TO UPDATE SO ACTUALLY DELETES BOOKING
 def RejectBooking(request, id):
     profile_to_update = Profile.objects.get(id=id)
     if profile_to_update.pound == request.user:

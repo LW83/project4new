@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html class="h-100">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -15,6 +16,8 @@
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/paw-solid.svg' %}">
 
 </head>
 
@@ -49,12 +52,14 @@
     </div>
     <main class="flex-shrink-0 main-bg">
         {% block content %}
-        <!-- Content Goes here -->
         {% endblock content %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer mt-auto py-3 dark-bg">
+    <footer class="footer mt-auto py-3 bg-primary">
+        <div class="footer">
+        <p class="text-center">© Copyright 2022 Lynne Wilkinson. All Rights Reserved.</p>
+        </div>
     </footer>
 </body>
 
