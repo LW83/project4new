@@ -37,7 +37,7 @@ class RescueSignUpForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('dog_breed', 'gender', 'approx_age', 'neutered', 'microchipped', 'circumstance', 'pound_entry_date', 'hold_date', 'status', 'urgency')
+        fields = ('dog_breed', 'gender', 'approx_age', 'neutered', 'microchipped', 'circumstance', 'pound_entry_date', 'hold_date', 'status','urgency',)
         widgets = {
             'pound_entry_date': DatePickerInput(),
             'hold_date': DatePickerInput(),
@@ -55,6 +55,10 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ('collection_date', 'phone_number')
+        help_texts = {
+            'collection_date': ('Please enter in format YYYY-MM-DD'),
+            'phone_number': ('Please enter in the format CountryCodePhoneNumber e.g. +353871234567')
+        }
         widgets = {
             'collection_date': DatePickerInput(),
         }

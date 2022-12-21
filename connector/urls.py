@@ -20,4 +20,5 @@ urlpatterns = [
     path('accept_booking/<int:id>', views.AcceptBooking, name='accept_booking'),
     path('reject_booking/<int:id>', views.RejectBooking, name='reject_booking'),
     # path('delete_booking/<int:id>', views.DeleteBooking, name='delete_booking'),
+    # path('my_dashboard/my_rescue_proposed_bookings', views.MyRescueProposedBookingList, name='my_rescue_proposed_bookings'),
 ]

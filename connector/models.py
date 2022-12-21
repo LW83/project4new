@@ -21,6 +21,7 @@ MICROCHIPPED = ((0, "Yes"), (1, "No"), (2, "Unknown"))
 CIRCUMSTANCE = ((0, "Stray"), (1, "Surrender"), (2, "Seized"), (3, "Other"))
 GENDER = ((0, "Male"), (1, "Female"))
 
+
 class Profile(models.Model):
     profile_added = models.DateField(auto_now_add=True)
     last_updated = models.DateField(auto_now=True)
@@ -46,4 +47,3 @@ class Booking(models.Model):
     collection_date = models.DateField()
     phone_number = PhoneNumberField(null=False, blank=False)
     approved = models.BooleanField(default=False)
-

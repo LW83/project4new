@@ -34,6 +34,8 @@ Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-ta
 
 To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
 
+To fix form.media issue to display calendars in create profile and create booking forms: https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template
+
 
 POSSIBLE: 
 Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr

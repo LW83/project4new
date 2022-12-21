@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap');
+
+.brand {
+    font-family: Fredoka One, Sans-Serif;
+}
+
+body {
+    font-family: Varela Round, Sans-Serif;
+}
+
+.tagline {
+    color: #ffffff;
+    font-style: italic;
+}
+
+.logged_in_text {
+    color: #ffffff;
+}

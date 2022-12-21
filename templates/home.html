@@ -32,16 +32,21 @@
             </button>
             {% else %}
             <a class="navbar-brand"><span class="brand"><i class="fa-solid fa-paw"></i> Connector</span></a>
+            <span class="justify-content-end tagline">..Giving Pound Dogs their Second Chance</span>
     </nav>
-        <div class="col-6 justify-content-center">
-            <a href="{% url 'login' %}" class="btn btn-primary" role="button">Login</a>
-        </div>
-        <div class="col-6 justify-content-center">
-            <a href="{% url 'signup' %}" class="btn btn-light" role="button">Register</a>
+    <div class="container-fluid">
+        <div class="'row">
+            <div class="col-xs-12">
+                <div class="text-center">
+                <a href="{% url 'login' %}" class="btn btn-lg btn-primary" role="button">Login</a>
+                </div>
+                <div class="text-center">
+                <a href="{% url 'signup' %}" class="btn btn-lg btn-outline-primary" role="button">Register</a>
+                </div>
+            </div>
         </div>
             {% endif %}
-    </nav>
-
+    </div>
     <main class="flex-shrink-0 main-bg">
         {% block content %}
         <!-- Content Goes here -->

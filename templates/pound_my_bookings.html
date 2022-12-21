@@ -24,7 +24,7 @@
                 <td>{{ Profile.last_updated }}</td>
                 <td>{{ Profile.dog_breed }}</td>
                 <td>{{ Profile.get_gender_display }}</td>
-                <td>{{ Profile.get_approx_age }}</td>
+                <td>{{ Profile.approx_age }}</td>
                 <td>{{ Profile.get_neutered_display }}</td>
                 <td>{{ Profile.get_microchipped_display }}</td>
                 <td>{{ Profile.get_circumstance_display }}</td>
@@ -32,8 +32,12 @@
                 <td>{{ Profile.hold_date }}</td>
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
-                <td></td>
-                <td><a href="{% url 'delete_booking' Booking.pk %}"><i class="fa-solid fa-trash"></i></a></td>
+                {% for dog_booking in Profile.dog_booking.all %}
+                <td>{{ Profile.dog_booking.rescue }}</td>
+                <td>{{ Profile.dog_booking.phone_number }}</td>
+                <td>{{ Profile.dog_booking.collection_date }}</td>
+                {% endfor %}
+                <!-- <td><a href="{% url 'delete_booking' Booking.pk %}"><i class="fa-solid fa-trash"></i></a></td> -->
             </tr>
             {% endfor %}
     </table>

@@ -24,7 +24,7 @@
                 <td>{{ Profile.last_updated }}</td>
                 <td>{{ Profile.dog_breed }}</td>
                 <td>{{ Profile.get_gender_display }}</td>
-                <td>{{ Profile.get_approx_age }}</td>
+                <td>{{ Profile.approx_age }}</td>
                 <td>{{ Profile.get_neutered_display }}</td>
                 <td>{{ Profile.get_microchipped_display }}</td>
                 <td>{{ Profile.get_circumstance_display }}</td>
@@ -32,9 +32,11 @@
                 <td>{{ Profile.hold_date }}</td>
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
-                <td>{{ Profile.dog_bookings.rescue }}</td>
-                <td>{{ Profile.dog_bookings.phone_number }}</td>
-                <td>{{ Profile.dog_bookings.collection_date }}</td>
+                {% for dog_booking in Profile.dog_booking.all %}
+                    <td>{{ Profile.dog_booking.rescue }}</td>
+                    <td>{{ Profile.dog_booking.phone_number }}</td>
+                    <td>{{ Profile.dog_booking.collection_date }}</td>
+                {% endfor %}
                 <td><a href="{% url 'accept_booking' Profile.pk %}" class="btn" role="button">Accept</a></td>
                 <td><a href="{% url 'reject_booking' Profile.pk %}" class="btn" role="button">Reject</a></td>
             </tr>

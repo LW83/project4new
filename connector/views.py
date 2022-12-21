@@ -165,6 +165,7 @@ class MyProfileList(ListView):
         )
 
 
+# View to display historic dogs for pound user
 class MyPreviousProfileList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_previous_dogs.html'
@@ -176,6 +177,7 @@ class MyPreviousProfileList(LoginRequiredMixin, ListView):
         )
 
 
+# View to display current bookings for dogs for pound user
 class MyBookingList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_bookings.html'
@@ -198,6 +200,7 @@ class MyProposedBookingList(LoginRequiredMixin, ListView):
         )
 
 
+# View to allow rescue user to create a booking request for a dog
 class BookingRequest(CreateView):
     def get(self, request, id):
         profile_to_book = get_object_or_404(Profile, id=id)
@@ -217,9 +220,10 @@ class BookingRequest(CreateView):
         if booking_form.is_valid():
             create_booking = booking_form.save(commit=False)
             create_booking.rescue = request.user
-            profile_to_book.status = 8
             create_booking.profile = profile_to_book
             create_booking.save()
+            profile_to_book.status = 8
+            profile_to_book.save()
             messages.success(request, 'Booking requested successfully.')
             return redirect('profiles')
         else:
@@ -235,6 +239,7 @@ class BookingRequest(CreateView):
         )
 
 
+# View to allow pound user to accept a booking request
 def AcceptBooking(request, id):
     profile_to_update = Profile.objects.get(id=id)
     if profile_to_update.pound == request.user:
@@ -248,6 +253,7 @@ def AcceptBooking(request, id):
         return redirect('my_proposed_bookings')
 
 
+# View to allow pound user to reject a booking request
 def RejectBooking(request, id):
     profile_to_update = Profile.objects.get(id=id)
     if profile_to_update.pound == request.user:
@@ -261,10 +267,50 @@ def RejectBooking(request, id):
         return redirect('my_proposed_bookings')
 
 
-# View to display for user to delete a booking
+# # View to display for user to delete a booking
+# def get(self, request, id):
+#         profile = get_object_or_404(Profile, id=id)
+#         booking_to_delete = Booking(instance=profile)
+
+#         return render(
+#             request,
+#             "create_booking.html",
+#             {
+#                 "booking_form": BookingForm,
+#             }
+#         )
+
+#     def post(self, request, id):
+#         profile_to_book = get_object_or_404(Profile, id=id)
+#         booking_form = BookingForm(request.POST, request.FILES)
+#         if booking_form.is_valid():
+#             create_booking = booking_form.save(commit=False)
+#             create_booking.rescue = request.user
+#             create_booking.profile = profile_to_book
+#             create_booking.save()
+#             profile_to_book.status = 8
+#             profile_to_book.save()
+#             messages.success(request, 'Booking requested successfully.')
+#             return redirect('profiles')
+#         else:
+#             messages.error(request, 'Booking not saved, please try again.')
+#             booking_form = BookingForm()
+
+#         return render(
+#             request,
+#             "create_booking.html",
+#             {
+#                 "booking_form": booking_form,
+#             }
+#         )
+
 # def DeleteBooking(request, id):
 #     booking_to_delete = get_object_or_404(Booking, id=id)
-#     if booking_to_delete.pound | booking_to_delete.rescue == request.user:
+#     if booking_to_delete.rescue == request.user:
+#         booking_to_delete.delete()
+#         messages.success(request, 'Booking was successfully deleted.')
+#         return redirect('profiles')
+#     elif booking_to_delete.pound == request.user:
 #         booking_to_delete.delete()
 #         messages.success(request, 'Booking was successfully deleted.')
 #         return redirect('my_current_dogs')
@@ -272,3 +318,41 @@ def RejectBooking(request, id):
 #         messages.error(request,
 #         'Booking deletion unsuccessful, please try again.')
 #         return redirect('my_booked_dogs')
+
+
+# # View to display for pound user to delete a dog profile
+# class DeleteProfile(DeleteView):
+
+#     def get(self, request, id):
+#         profile_to_delete = get_object_or_404(Profile, id=id)
+#         if profile_to_delete.pound == self.request.user:
+#             profile_to_delete.delete()
+#             messages.success(request, 'Profile was successfully deleted.')
+#             return redirect('my_current_dogs')
+#         else:
+#             messages.error(request,
+#             'Profile deletion unsuccessful, please try again.')
+#             return redirect('my_current_dogs')
+
+# def delete(request, id):
+#   member = Members.objects.get(id=id)
+#   member.delete()
+#   return HttpResponseRedirect(reverse('index'))
+
+
+
+
+
+
+
+
+
+
+
+
+# def MyRescueProposedBookingList(request, id):
+#     profile = Profile.objects.filter(status=8)(pk=pk)
+#     booking = Booking.objects.filter(profile=profile).filter(rescue=request.user)
+
+#     mydict = {'the_profile': profile, 'the_booking': booking}
+#     return render(request, 'rescue_my_proposed_bookings.html', context=mydict)

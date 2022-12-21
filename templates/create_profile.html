@@ -5,23 +5,20 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<!-- <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{% url 'profiles' %}">My Profiles</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Add a New Profile</li>
-    </ol>
-</nav> -->
-  
-<h2 class="mb-3">Add a New Profile</h2>
+<div class="text-center">
+<h2 class="mt-2 mb-2">Add a New Profile</h2>
+</div>
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6 col-sm-8 col-12">
-      <!-- {{ form.media }} -->
+      {{ profile_form.media }}
       <form method="post">
         {% csrf_token %}
         {{ profile_form|crispy }}
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="{% url 'profiles' %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+        <div class="mt-2">
+          <button type="submit" class="btn btn-success">Save</button>
+          <a href="{% url 'profiles' %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+        </div>
       </form>
     </div>
 </div>
