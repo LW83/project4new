@@ -271,24 +271,23 @@ def AcceptBooking(request, id):
 class DeleteBooking(DeleteView):
 
     def get(self, request, id):
-        print(f"ID: {id}")
         profile_to_update = get_object_or_404(Profile, id=id)
         booking_to_delete = profile_to_update.dog_booking.all()
         if profile_to_update.pound == self.request.user:
             booking_to_delete.delete()
             profile_to_update.status = 1
             profile_to_update.save()
-            messages.success(request, 'Profile was successfully deleted.')
+            messages.success(request, 'Booking was successfully declined.')
             return redirect('my_dashboard')
         elif booking_to_delete.rescue == self.request.user:
             booking_to_delete.delete()
             profile_to_update.status = 1
             profile_to_update.save()
-            messages.success(request, 'Profile was successfully deleted.')
+            messages.success(request, 'Booking was successfully declined.')
             return redirect('my_dashboard')
         else:
             messages.error(request,
-            'Profile deletion unsuccessful, please try again.')
+            'Booking deletion unsuccessful, please try again.')
             return redirect('my_current_dogs')
 
 

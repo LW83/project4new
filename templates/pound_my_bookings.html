@@ -37,7 +37,7 @@
                 <td>{{ dog_booking.phone_number }}</td>
                 <td>{{ dog_booking.collection_date }}</td>
                 {% endfor %}
-                <td><button type="submit"><a href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></button></td>
+                <td><a href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
     {% endfor %}
     </table>

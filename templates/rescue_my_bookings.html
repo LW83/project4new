@@ -38,6 +38,8 @@
                 <td>{{ booking.phone_number }}</td>
                 <td>{{ booking.collection_date }}</td>
             {% endfor %}
+
+            <td><a href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
         </tr>
     {% endfor %}
     </table>
