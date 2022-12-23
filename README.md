@@ -36,6 +36,8 @@ To create accept and reject booking functions: https://www.w3schools.com/django/
 
 To fix form.media issue to display calendars in create profile and create booking forms: https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template
 
+Creating view for rescues: if and statement for status of profile and rescue user from Booking model: https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django
+
 
 POSSIBLE: 
 Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr

@@ -33,12 +33,12 @@
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
                 {% for dog_booking in Profile.dog_booking.all %}
-                    <td>{{ dog_booking.rescue }}</td>
+                    <td>{{ dog_booking.rescue.rescue_official_name }}</td>
                     <td>{{ dog_booking.phone_number }}</td>
                     <td>{{ dog_booking.collection_date }}</td>
                 {% endfor %}
-                <td><a href="{% url 'accept_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button">Accept</a></td>
-                <td><a href="{% url 'reject_booking' Profile.pk %}" class="btn btn-sm btn-danger" role="button">Reject</a></td>
+                <td><button type="sumbit"><a href="{% url 'accept_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button">Accept</a></button></td>
+                <td><button type="sumbit"><a href="{% url 'delete_booking' Profile.pk %}" class="btn btn-sm btn-danger" role="button">Reject</a></button></td>
             </tr>
     {% endfor %}     
     </table>

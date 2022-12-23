@@ -18,7 +18,7 @@ urlpatterns = [
     path('my_dashboard/my_proposed_bookings', views.MyProposedBookingList.as_view(), name='my_proposed_bookings'),
     path('create_booking/<int:id>', views.BookingRequest.as_view(), name='create_booking'),
     path('accept_booking/<int:id>', views.AcceptBooking, name='accept_booking'),
-    path('reject_booking/<int:id>', views.RejectBooking, name='reject_booking'),
-    # path('delete_booking/<int:id>', views.DeleteBooking, name='delete_booking'),
-    # path('my_dashboard/my_rescue_proposed_bookings', views.MyRescueProposedBookingList, name='my_rescue_proposed_bookings'),
+    path('delete_booking/<int:id>', views.DeleteBooking.as_view(), name='delete_booking'),
+    path('my_dashboard/rescue_proposed_bookings', views.MyRescueProposedBookingList.as_view(), name='rescue_my_proposed_bookings'),
+    path('my_dashboard/rescue_my_bookings', views.MyRescueBookingList.as_view(), name='rescue_my_bookings'),
 ]

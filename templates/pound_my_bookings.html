@@ -15,7 +15,7 @@
             <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
             <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
             <th>Urgency</th><th>Booking Rescue</th><th>Contact Number</th>
-            <th>Collection Date</th><th>Edit Booking</th><th>Delete Booking</th>
+            <th>Collection Date</th><th>Delete Booking</th>
         </tr>
     {% for Profile in object_list %}
             <tr>
@@ -33,13 +33,13 @@
                 <td>{{ Profile.get_status_display }}</td>
                 <td>{{ Profile.get_urgency_display }}</td>
                 {% for dog_booking in Profile.dog_booking.all %}
-                <td>{{ Profile.dog_booking.rescue }}</td>
-                <td>{{ Profile.dog_booking.phone_number }}</td>
-                <td>{{ Profile.dog_booking.collection_date }}</td>
+                <td>{{ dog_booking.rescue.rescue_official_name }}</td>
+                <td>{{ dog_booking.phone_number }}</td>
+                <td>{{ dog_booking.collection_date }}</td>
                 {% endfor %}
-                <!-- <td><a href="{% url 'delete_booking' Booking.pk %}"><i class="fa-solid fa-trash"></i></a></td> -->
+                <td><button type="submit"><a href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></button></td>
             </tr>
-            {% endfor %}
+    {% endfor %}
     </table>
     
 </div>

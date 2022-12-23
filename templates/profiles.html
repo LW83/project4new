@@ -8,7 +8,7 @@
     <caption>List of Dogs in Pounds Looking for Placement</caption>
     <tr>
         <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
-        <th>Pound</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
+        <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
         <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
         <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
         <th>Urgency</th>
@@ -19,6 +19,7 @@
             <td>{{ Profile.profile_added }}</td>
             <td>{{ Profile.last_updated }}</td>
             <td>{{ Profile.pound.pound_official_name }}</td>
+            <td>{{ Profile.pound.get_county_display }}</td>
             <td>{{ Profile.dog_breed }}</td>
             <td>{{ Profile.get_gender_display }}</td>
             <td>{{ Profile.approx_age }}</td>
