@@ -23,4 +23,5 @@ urlpatterns = [
     path('my_dashboard/rescue_my_bookings', views.MyRescueBookingList.as_view(), name='rescue_my_bookings'),
     path('confirm_collection/<int:id>', views.ConfirmCollection.as_view(), name='confirm_collection'),
     path('my_dashboard/my_rescued_dogs', views.MyRescuedDogsList.as_view(), name='my_rescued_dogs'),
+    path('my_dashboard/rescue_proposed_bookings/edit_booking/<int:id>', views.EditBooking.as_view(), name='edit_booking'),
 ]

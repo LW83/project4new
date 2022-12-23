@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="text-center">
+<h2 class="mt-4 mb-4">Edit your Booking</h2>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-4 col-sm-8 col-12">
+      {{ edit_booking_form.media }}
+      <form method="post">
+        {% csrf_token %}
+        {{ edit_booking_form|crispy }}
+        <button type="submit" class="btn btn-success mt-2">Save</button>
+        <a href="{% url 'profiles' %}" class="btn btn-outline-secondary mt-2" role="button">Cancel</a>
+      </form>
+    </div>
+</div>
+
+
+{% else %}
+ <p>You do not currently have permission to view this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
+{% endif %}
+
+{%endblock%}

@@ -97,9 +97,7 @@ class CreateProfile(CreateView):
 
 # View to display for pound user to edit a dog profile
 class EditProfile(UpdateView):
-    """
-    Class to allow pound users to update a profile.
-    """
+
     def get(self, request, id):
         profile_to_edit = get_object_or_404(Profile, id=id)
         edit_profile_form = ProfileForm(instance=profile_to_edit)
@@ -315,6 +313,38 @@ class MyRescuedDogsList(LoginRequiredMixin, ListView):
     model = Profile
     queryset = Profile.objects.filter(status=3)
     template_name = 'rescue_my_rescued_dogs.html'
+
+
+# View to all rescue user to edit booking
+class EditBooking(UpdateView):
+    
+    def get(self, request, id):
+        booking_to_edit = get_object_or_404(Booking, id=id)
+        edit_booking_form = BookingForm(instance=booking_to_edit)
+        if booking_to_edit.rescue == request.user:
+            return render(
+                request,
+                "edit_booking.html",
+                {
+                    "edit_booking_form": edit_booking_form,
+                }
+            )
+        else:
+            return redirect('my_dashboard')
+
+    def post(self, request, id):
+        booking_to_edit = get_object_or_404(Booking, id=id)
+        edit_booking_form = BookingForm(
+                         request.POST, request.FILES, instance=booking_to_edit)
+        if booking_to_edit.rescue == request.user:
+            if edit_booking_form.is_valid():
+                edit_booking_form.save()
+                messages.success(request, 'Booking updated successfully.')
+                return redirect('my_dashbaord')
+            else:
+                messages.error(request,
+                               'Booking update unsuccessful, please try again.')
+                return redirect('my_dashboard')
 
 
 # TO BE DELETED
