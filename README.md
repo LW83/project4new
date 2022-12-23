@@ -17,6 +17,8 @@ Delete button: https://stackoverflow.com/questions/55705666/django-tables2-with-
 
 Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
 
+Add deletion confirm to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
+
  <!-- {% empty %}
         <div>You have no profiles in this list.</div> -->
 

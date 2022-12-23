@@ -4,12 +4,11 @@ from django.contrib.auth import login
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, CreateView, UpdateView, DeleteView, TemplateView, ListView
-from django.urls import reverse, reverse_lazy
-from itertools import chain
+from django.urls import reverse, reverse_lazy  # Can probably delete
+from itertools import chain  # Can probably delete
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
-
-# Create your views here.
+from .serializers import ProfileSerializer, ProfileBookingSerializer
 
 
 # View to display homepage
@@ -144,11 +143,6 @@ class DeleteProfile(DeleteView):
             'Profile deletion unsuccessful, please try again.')
             return redirect('my_current_dogs')
 
-# def delete(request, id):
-#   member = Members.objects.get(id=id)
-#   member.delete()
-#   return HttpResponseRedirect(reverse('index'))
-
 
 # View to display logged in users dashboard
 class MyDashboard(TemplateView):
@@ -256,17 +250,6 @@ def AcceptBooking(request, id):
         return redirect('my_proposed_bookings')
 
 
-# # View to allow user to delete/reject a booking request
-# def DeleteBooking(request, id):
-#     profile = get_object_or_404(Profile, id=id)
-#     booking_to_delete = Booking.objects.get(profile)
-#     booking_to_delete.delete()
-#     profile.status = 1
-#     profile.save()
-#     messages.success(request, 'Profile was successfully removed.')
-#     return redirect('my_dashboard')
-
-
 # View to allow user to delete/reject a booking request
 class DeleteBooking(DeleteView):
 
@@ -288,55 +271,146 @@ class DeleteBooking(DeleteView):
         else:
             messages.error(request,
             'Booking deletion unsuccessful, please try again.')
-            return redirect('my_current_dogs')
+            return redirect('my_dashboard')
 
+
+# View to display current proposed bookings for dogs for rescue user
+class MyRescueProposedBookingList(LoginRequiredMixin, ListView):
+    model = Profile
+    queryset = Profile.objects.filter(status=8)
+    template_name = 'rescue_my_proposed_booking.html'
+
+
+# View to display current bookings for dogs for rescue user
+class MyRescueBookingList(LoginRequiredMixin, ListView):
+    model = Profile
+    queryset = Profile.objects.filter(status=2)
+    template_name = 'rescue_my_bookings.html'
+
+
+# View to allow pound or user to confirm transfer to rescue
+class ConfirmCollection(View):
+
+    def get(self, request, id):
+        profile_to_update = get_object_or_404(Profile, id=id)
+        related_booking = profile_to_update.dog_booking.all()
+        if profile_to_update.pound == self.request.user:
+            profile_to_update.status = 3
+            messages.success(request, 'Rescue collection confirmed.')
+            profile_to_update.save()
+            return redirect('my_dashboard')
+        elif related_booking.rescue == self.request.user:
+            profile_to_update.status = 3
+            messages.success(request, 'Rescue collection confirmed.')
+            profile_to_update.save()
+            return redirect('my_dashboard')
+        else:
+            messages.error(request,
+            'Rescue transfer confirmation unsuccessful, please try again.')
+            return redirect('my_dashboard')
+
+
+# View to display rescued dogs for rescue user
+class MyRescuedDogsList(LoginRequiredMixin, ListView):
+    model = Profile
+    queryset = Profile.objects.filter(status=3)
+    template_name = 'rescue_my_rescued_dogs.html'
+
+
+# TO BE DELETED
 
 # class DeleteBooking(DeleteView):
 #     model = Booking
 #     success_url = reverse_lazy('my_dashboard')
-    
 #     def get(self, request, *args, **kwargs):
 #         return self.post(request, *args, **kwargs)
 
 
+# # View to allow user to delete/reject a booking request
+# def DeleteBooking(request, id):
+#     profile = get_object_or_404(Profile, id=id)
+#     booking_to_delete = Booking.objects.get(profile)
+#     booking_to_delete.delete()
+#     profile.status = 1
+#     profile.save()
+#     messages.success(request, 'Profile was successfully removed.')
+#     return redirect('my_dashboard')
+
+
+# def delete(request, id):
+#   member = Members.objects.get(id=id)
+#   member.delete()
+#   return HttpResponseRedirect(reverse('index'))
+
+
+# class MyRescueProposedBookingList(View):
+#     template_name = 'rescue_my_proposed_booking.html'
+
+#     def get(self, request):
+#         query = Profile.objects.all()
+#         queryset = Booking.objects.all()
+#         serializer_profile = ProfileSerializer(query, many=True)
+#         serializer_booking = ProfileBookingSerializer(queryset, many=True)
+#         profile_booking = {'booking': serializer_booking.data}
+#         print(profile_booking.items())
+#         return render(request, 'rescue_my_proposed_booking.html',
+#                 {'profile_booking': profile_booking,
+#                 },
+#                 )
+
+# class MyRescueBookingList(View):
+
+#     def get(self, request, *args, **kwargs):
+#         profiles = Profile.objects.filter(status=2)
+#         print(profiles)
+        # bookings = profiles.objects.filter(Profile.dog_booking.rescue == self.request.user.id)
+        # print(bookings)
+
+        # if profiles and bookings:
+        #     return render(request,
+        #         "rescue_my_bookings.html",
+        #         {
+        #             "profiles": profiles,
+        #             "bookings": bookings,
+        #         },
+        #     )
+        # else:
+        #     return redirect('my_dashboard')
+        #     messages.error(request,
+        #     'You do not have any current bookings.')
+
 # View to display current proposed bookings for dogs for rescue user
-class MyRescueProposedBookingList(View):
+# class MyRescueProposedBookingList(View):
 
-    def get(self, request, *args, **kwargs):
-        profiles = Profile.objects.filter(status=8)
-        bookings = Booking.objects.filter(rescue=self.request.user.id)
+#     def get(self, request, *args, **kwargs):
+#         profiles = Profile.objects.filter(status=8)
+#         bookings = Booking.objects.filter(rescue=self.request.user.id)
 
-        if profiles and bookings:
-            return render(request,
-                "rescue_my_proposed_booking.html",
-                {
-                    "profiles": profiles,
-                    "bookings": bookings,
-                },
-            )
-        else:
-            return redirect('my_dashboard')
-            messages.error(request,
-            'You do not have any current proposed bookings.')
+#         if profiles and bookings:
+#             return render(request,
+#                 "rescue_my_proposed_booking.html",
+#                 {
+#                     "profiles": profiles,
+#                     "bookings": bookings,
+#                 },
+#             )
+#         else:
+#             return redirect('my_dashboard')
+#             messages.error(request,
+#             'You do not have any current proposed bookings.')
 
 
-# View to display current proposed bookings for dogs for rescue user
-class MyRescueBookingList(View):
+#View to display current proposed bookings for dogs for rescue user
+# class MyRescueProposedBookingList(View):
 
-    def get(self, request, *args, **kwargs):
-        profiles = Profile.objects.filter(status=2)
-        bookings = Booking.objects.filter(rescue=self.request.user.id)
-
-        if profiles and bookings:
-            return render(request,
-                "rescue_my_bookings.html",
-                {
-                    "profiles": profiles,
-                    "bookings": bookings,
-                },
-            )
-        else:
-            return redirect('my_dashboard')
-            messages.error(request,
-            'You do not have any current bookings.')
-
+#     def get(self, request, *args, **kwargs):
+#         profiles = Profile.objects.filter(
+#            Q(status=8),
+#            (dog_booking.rescue==self.request.user)
+#         )
+#         return render(request,
+#             "rescue_my_proposed_booking.html",
+#             {
+#                 "profiles": profiles,
+#             },
+#         )

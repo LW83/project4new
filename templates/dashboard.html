@@ -12,8 +12,9 @@
         <div class="text-center">
             <p class="lead">Please select what you wish to view:</p>
         </div>
-        <div class="text-center">
-        <a href="{% url 'create_profile' %}" class="btn btn-lg btn-primary" role="button">Add a Dog</a>
+        <div class="text-center mt-4">
+            <a href="{% url 'profiles' %}" class="btn btn-lg btn-primary" role="button">See All Dogs</a>
+            <a href="{% url 'create_profile' %}" class="btn btn-lg btn-primary" role="button">Add a Dog</a>
         </div>
         <div class="text-center mt-4">
         <a href="{% url 'my_current_dogs' %}" class="btn btn-lg btn-primary" role="button">My Current Dogs</a>
@@ -29,9 +30,11 @@
         <p class="lead">Please select what you wish to view:</p>
         </div>
         <div class="text-center mt-4">
-        <a href="{% url 'my_booked_dogs' %}" class="btn btn-lg btn-primary" role="button">My Booked Dogs</a>
+            <a href="{% url 'profiles' %}" class="btn btn-lg btn-primary" role="button">See All Dogs</a>
+            <a href="{% url 'my_rescued_dogs' %}" class="btn btn-lg btn-primary" role="button">My Rescued Dogs</a>
         </div>
         <div class="text-center mt-4">
+        <a href="{% url 'rescue_my_bookings' %}" class="btn btn-lg btn-primary" role="button">My Booked Dogs</a>
         <a href="{% url 'rescue_my_proposed_bookings' %}" class="btn btn-lg btn-primary" role="button">My Proposed Bookings</a>
         </div>
 

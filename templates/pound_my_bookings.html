@@ -15,7 +15,7 @@
             <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
             <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
             <th>Urgency</th><th>Booking Rescue</th><th>Contact Number</th>
-            <th>Collection Date</th><th>Delete Booking</th>
+            <th>Collection Date</th><th>Delete Booking</th><th>Confirm Collection</th>
         </tr>
     {% for Profile in object_list %}
             <tr>
@@ -37,7 +37,8 @@
                 <td>{{ dog_booking.phone_number }}</td>
                 <td>{{ dog_booking.collection_date }}</td>
                 {% endfor %}
-                <td><a href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
+                <td><a onclick="return confirm('Are you sure do you want to delete this booking?')" href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
+                <td><a href="{% url 'confirm_collection' Profile.pk %}" class="btn btn-sm btn-success" role="button">Collected</a></td>
             </tr>
     {% endfor %}
     </table>
