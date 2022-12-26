@@ -123,7 +123,8 @@ class EditProfile(UpdateView):
                 return redirect('profiles')
             else:
                 messages.error(request,
-                               'Profile update unsuccessful, please try again.')
+                               'Profile update unsuccessful,'
+                               'please try again.')
                 return redirect('profiles')
 
 
@@ -138,7 +139,7 @@ class DeleteProfile(DeleteView):
             return redirect('my_current_dogs')
         else:
             messages.error(request,
-            'Profile deletion unsuccessful, please try again.')
+                           'Profile deletion unsuccessful, please try again.')
             return redirect('my_current_dogs')
 
 
@@ -244,7 +245,7 @@ def AcceptBooking(request, id):
         return redirect('my_booked_dogs')
     else:
         messages.error(request,
-        'Booking has not been accepted, please try again.')
+                       'Booking has not been accepted, please try again.')
         return redirect('my_proposed_bookings')
 
 
@@ -268,7 +269,7 @@ class DeleteBooking(DeleteView):
             return redirect('my_dashboard')
         else:
             messages.error(request,
-            'Booking deletion unsuccessful, please try again.')
+                           'Booking deletion unsuccessful, please try again.')
             return redirect('my_dashboard')
 
 
@@ -304,7 +305,8 @@ class ConfirmCollection(View):
             return redirect('my_dashboard')
         else:
             messages.error(request,
-            'Rescue transfer confirmation unsuccessful, please try again.')
+                           'Rescue transfer confirmation unsuccessful,'
+                           'please try again.')
             return redirect('my_dashboard')
 
 
@@ -317,7 +319,7 @@ class MyRescuedDogsList(LoginRequiredMixin, ListView):
 
 # View to all rescue user to edit booking
 class EditBooking(UpdateView):
-    
+
     def get(self, request, id):
         booking_to_edit = get_object_or_404(Booking, id=id)
         edit_booking_form = BookingForm(instance=booking_to_edit)
@@ -340,10 +342,11 @@ class EditBooking(UpdateView):
             if edit_booking_form.is_valid():
                 edit_booking_form.save()
                 messages.success(request, 'Booking updated successfully.')
-                return redirect('my_dashbaord')
+                return redirect('my_dashboard')
             else:
                 messages.error(request,
-                               'Booking update unsuccessful, please try again.')
+                               'Booking update unsuccessful,'
+                               'please try again.')
                 return redirect('my_dashboard')
 
 
@@ -430,7 +433,7 @@ class EditBooking(UpdateView):
 #             'You do not have any current proposed bookings.')
 
 
-#View to display current proposed bookings for dogs for rescue user
+# View to display current proposed bookings for dogs for rescue user
 # class MyRescueProposedBookingList(View):
 
 #     def get(self, request, *args, **kwargs):

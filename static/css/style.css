@@ -1,12 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Varela+Round&display=swap');
 
+body {
+    font-family: Varela Round, Sans-Serif;
+}
+
+/* ------------------------------------------------------------ Landing Page */
+
+.homepage_login {
+    height: 80vh;
+}
+
+.signup_div {
+    height: 80vh;
+}
+
+/* ------------------------------------------------------------ Header/Navbar */
+
 .brand {
     font-family: Fredoka One, Sans-Serif;
     font-size: xx-large;
-}
-
-body {
-    font-family: Varela Round, Sans-Serif;
 }
 
 .tagline {
@@ -17,6 +29,14 @@ body {
 .logged_in_text {
     color: #ffffff;
 }
+
+/* ------------------------------------------------------------ Dashboard tables */
+
+th {
+    color:#ffffff
+}
+
+/* ------------------------------------------------------------ Footer */
 
 .footer {
     color: #ffffff;

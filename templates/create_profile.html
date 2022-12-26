@@ -7,7 +7,7 @@
 {% if user.is_authenticated %}
 
 <div class="text-center">
-  <h2 class="mt-4 mb-4">Add a New Profile</h2>
+  <h2 class="mt-4">Add a New Profile</h2>
 </div>
 
 <div class="row justify-content-center">
@@ -16,7 +16,7 @@
       <form method="post">
         {% csrf_token %}
         {{ profile_form|crispy }}
-        <div class="mt-2">
+        <div class="mt-2 mb-4">
           <button type="submit" class="btn btn-success mt-2">Save</button>
           <a href="{% url 'my_dashboard' %}" class="btn btn-outline-secondary mt-2" role="button">Cancel</a>
         </div>

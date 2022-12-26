@@ -1,57 +1,10 @@
-https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory - Correct to allow migration of User
-
-Bug - wasn't picking up login template - needed to put in registration folder https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
-
-Getting object by id: https://stackoverflow.com/questions/73338018/how-to-get-an-object-by-id-in-django
-
-Int Pk URL structure: https://github.com/fabricius1/DjangoFilmsCRUD/blob/master/films/urls.py
-Adding extra fields in registration form: https://stackoverflow.com/questions/45708119/how-to-add-extra-fields-to-django-registration-form
-
-Creating filter for user and certain dog profiles: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
-
-For dates in create profile form TRY: date_added = forms.DateField(initial=today, widget=forms.SelectDateWidget(years=YEARS))
-Add calendar to select dates: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html
-
-Delete button: https://stackoverflow.com/questions/60616526/how-to-add-delete-button-in-each-row-of-my-table
-Delete button: https://stackoverflow.com/questions/55705666/django-tables2-with-edit-and-delete-buttons-how-to-do-it-properly
-
-Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
-
-Add deletion confirm to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
-
- <!-- {% empty %}
-        <div>You have no profiles in this list.</div> -->
-
-Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
-
-Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
-
-Phone numbers: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field
-https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
-Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
-
-Amending Admin to bring in additional fields: https://stackoverflow.com/questions/48011275/custom-user-model-fields-abstractuser-not-showing-in-django-admin
-
-Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint
-
-To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
-
-To fix form.media issue to display calendars in create profile and create booking forms: https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template
-
-Creating view for rescues: if and statement for status of profile and rescue user from Booking model: https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django
-
-
-POSSIBLE: 
-Password reset/change; https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
-Password reset: https://docs.djangoproject.com/en/4.1/topics/auth/default/
-Adding Filter to table: https://codepen.io/smashingmag/pen/LYWBgXy
-
-
 # Connector 
 ***
 ## Overview 
 
-Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in the Pound can be reassigned to Rescues based on urgency and Rescue availability. This is a purely fictional sysetm created for purely for demonstrating Python & Django skills learned as part of the Code Institute's Diploma in Full Stack Software Development. 
+Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in the Pound can be booked by Rescues based on urgency and Rescue availability. The site allows both Pound and Rescue users to create a user type specific account to either upload and manage dog profiles (Pound Users) or book and manage bookings (Rescue Users).
+
+This is a purely fictional sysetm created for purely for demonstrating Python & Django skills learned as part of the Code Institute's Diploma in Full Stack Software Development. 
 
 ![Responsiveness Demo](./docs/)
 
@@ -69,10 +22,12 @@ Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in
   * [**Concept and Planning**](#concept-and-planning)
     * [**UX**](#ux)
     * [**Logic**](#logic)
+    * [**Design**](#design)
+    * [**Wireframes**](#wireframes)
   * [**Existing Features**](#existing-features)
     * [**Landing Page**](#landing-page)
-    * [**User Inputs**](#user-inputs)
-    * [**Welcome Page**](#welcome-page)
+    * [**User Dashboards**](#user-dashboards)
+    * [****](#)
   * [**Feature Enhancements**](#feature-enhancements)
   * [**Testing**](#testing)
     * [**User Story Testing**](#user-story-testing)
@@ -97,17 +52,58 @@ Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in
 
 - __Target Audience__
 
-   - 
+   - The target audience for this application are local county council Dog Pounds and animal rescue shelters. This app is not intended for use by the general public.
 
 - __User Stories__
 
-   - As a user, I want 
-   - As a user, I want to be able to 
+   - As a Pound user, I want to be able to create a Connector account for my Pound so that I can upload dogs in my pound that need placement in a rescue.
+   - As a Pound user, I want to create my own log in details so that I can keep my account information secure. 
+   - As a Pound user, I want to be able to edit my user details including my password so that I can keep this information accurate and secure. 
+   - As a Pound user, I want to be able to add details about that dog including breed, age, gender, neuter and microchip status as well as key dates and urgency of placement so that Rescue users can clearly see what type of dog they are booking.  
+   - As a Pound user, I want to be able to view a list of all of my currently available dogs so that I know what profiles are active on the site. 
+   - As a Pound user, I want to be able to edit details for dogs uploaded so that profiles accurately reflect the status of all dogs. 
+   - As a Pound user, I want to be able to delete a profile if necessary so that my profiles accurately reflect dogs in my care. 
+   - As a Pound user, I want to be able to see details of proposed bookings by Rescues including contact information and proposed collection date so that I can determine suitability. 
+   - As a Pound user, I want to be able to accept or reject these bookings so that I can confirm the collection with the Rescue or make the dog available again. 
+   - As a Pound user, I want to be able to view a list of all accepted bookings so that I can see which dogs are pending collection. 
+   - As a Pound user, I want to be able to confirm when a dog has been transferred to Rescue so that I can keep the status of dogs current and accurate. 
+   - As a Pound user, I want to be able to see a history of uploaded dogs and their final status so that I can use this data for any reporting requirements I have. 
+   - As a Pound user, I want to be able to log out of my account so that I can keep my information secure. 
+
+   - As a Rescue user, I want to be able to create a Connector account for my Rescue so that I can book dogs that are in the Pound that my Rescue has space to take in.
+   - As a Rescue user, I want to create my own log in details so that I can keep my account information secure. 
+   - As a Rescue user, I want to be able to edit my user details including my password so that I can keep this information accurate and secure. 
+   - As a Rescue user, I want to be able to view details about a dog including breed, age, gender, neuter and microchip status as well as key dates and urgency of placement so that I can determine which dogs are suitable for my Rescue to take in, when they are available and which dogs are most in need of urgent placement.  
+   - As a Rescue user, I want to be able to 'book' a dog to take into my Rescue from the Pound.
+   - As a Rescue user, I want to be able to edit details of my bookings if the collection infomation is no longer accurate so that the Pound user has the latest information. 
+   - As a Rescue user, I want to be able to delete a booking if necessary so that the dog becomes available for another Rescue to book if I can no longer take them.  
+   - As a Rescue user, I want to be able to view a list of all currently proposed bookings so that I can see what is pending acceptance by a Pound user. 
+   - As a Rescue user, I want to be able to view a list of all accepted bookings so that I can see which dogs are pending my collection. 
+   - As a Rescue user, I want to be able to confirm when a dog has been transferred to Rescue so that I can keep the status of bookings current and accurate. 
+   - As a Rescue user, I want to be able to see a history of rescued dogs so that I can use this data for any reporting requirements I have. 
+   - As a Rescue user, I want to be able to log out of my account so that I can keep my information secure. 
+
+   - As a user, I can navigate the site easily and intuitively.
+
+   - As an Admin user, I want to be able to view all Users of Connector.
+   - As an Admin user, I want to be able to manage the permissions of Users of Connector.
+   - As an Admin user, I want to be able to edit the details for Users if required. 
+   - As an Admin user, I want to be able to delete users as required. 
+   - As an Admin user, I want to be able to edit and delete profiles and bookings of users if required. 
 
 - __Site Aims__
  
   - The site aims to meet the above user requirements through the following: 
-    -  Providing 
+    - Providing a requirement to log in or register for an account (Pound or Rescue) upon reaching the landing homepage.
+    - Upon sign in, the user can easily navigate to the element of the site they wish to use based on their user specific dashboard.
+    - Pound users can easily create a profile for a dog in their care from their dashboard which is then added to the main dashboard and visible to other users. 
+    - Users can easily view all dogs currently uploaded by Pounds, their details, location and urgency by viewing all dogs from their dashboard. For Rescue Users, this dashboard also allows the user to book a specific dog that they may have space to take in. If a proposed booking is made, this temporarily removes the profile from the main dashboard until the Pound user has either accepted or rejected the booking in order to avoid multiple booking requests. 
+    - Pound users can edit and delete profiles of dogs from within their Current dogs and Previous dogs dashbaords to maintain their details and status. 
+    - Pound users can easily view all proposed bookings for their dogs that they have received from Rescue users by accessed their Proposed bookings from their dashboard. From this dashboad they can accept or reject bookings. Accepted bookings move directly to their Bookings dashboard. Reject bookings move back to the Current dogs dashboard with an Available status again. 
+    - From their dashboard, Rescue users can view, edit and delete their bookings if they are no longer in a position to take a dog as proposed. 
+    - From their dashboard, users can see their collected or previous dogs if they wish to view historic data. 
+    - Users can logout upon completion of their session in order to keep their profile and information secure. 
+    - An admin dashboard and superuser rights have been created in order to enable to the management of users, profiles and bookings to ensure the management of the site. 
 
 ### Logic
 
@@ -115,33 +111,68 @@ Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in
 
 ![Lucidchart Diagram](./docs/)
 
+### Design
+
+- The design of the site is simple and functional. The core site aim is provide a practical and useful functionality to Pound and Rescue users and in this context a deliberate effort was made to keep the UI clean and clutterfree and to focus on the functionality and views required by the users. 
+- Google fonts Fredoka One (Brand) and Varela Round (body) have been used to soften the default font applied by Bootstrap and to add a 'friendlier' feel to the UI. 
+- In addition, a simple pawprint has been added as a favicon for the page, again to add an element of warmth and friendliness and in a nod to the core purpose of the site. This icon was sourced from Font Awesome. 
+
+### Wireframes
+
 ***
 ## Existing Features 
 
 ### Landing Page
 
-__Favicon__
+__Navigation__
 
-  -  A  has been added as a favicon for the page. 
-  
-  ![Favicon](./docs/)
+      Signed out 
 
 __Log In__
 
-  - The 
+  - The landing page requires
 
-### User Inputs
+### User Dashboards
 
-  - I
+__Navigation__
+  - Signed in 
 
-### Welcome Page
+  Pound Dashboard
+   - All
+   - My
+   - Add
+   - Proposed
+   - Bookings
+   - Previous
+
+  Rescue Dashboard
+  - All
+   - My
+   - Add
+   - Proposed
+   - Bookings
+   - Previous
+
+   Logout
+
+### Views
 
   - 
 
 ***
 ## Feature Enhancements
 
- - There are no current features that I believe are oustanding on the site however I would like to revisit the code in future to see if there is further opportunities for refactoring. 
+ - There are a number of feature enhancements that I believe would be beneficial to the site but which I ran out of time to try and incorporate prior to the submission deadline for this project. These include: 
+
+     - Adding conditional formatting to the Current Dogs Available for Placement dashboard to color code the urgency cell of the table and to easily enable a Rescue user to identify profiles of dogs most in need of placement. 
+     - Adding filters to the dashboards to better allow the User to narrow the information down for their specific need e.g. Rescue users to be able to filter based on location of pounds in their county.
+     - Adding a notification functionality so that users receive a notification for updates to profiles that they are a a booking party of e.g. If a Rescue user updates a booking that a notification is sent to the Pound to explicit state this change. 
+     - Removing status options of Booked/Booking Proposed from the create a dog profile form so that this status can only be rendered by using the booking functionality of the site.
+     - Enabling a propose alternative date functionality for the proposed bookings whereby instead of a straight accept or reject booking, a Pound user could propose an alternative collection date if required. 
+     - Enabling a password reminder/reset functionality within the site and the ability for the user to manage their own details. 
+     - Enabling dynamic additional fields for the Pound user based on the final status of the dog e.g. if a dog was reclaimed, details of the date and individual reclaiming. 
+     - Ability for the User to export data to excel or Google sheets.
+     - Enhance form population controls for date population e.g. error warning if collection date is prior to current hold date, or collection date is prior to current date.
        
 ***
 ## Testing 
@@ -203,13 +234,51 @@ __Python Validation__
           - Solution: 
           - Resource:  
 
+    https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory - Correct to allow migration of User
+
+Bug - wasn't picking up login template - needed to put in registration folder https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
+
+Getting object by id: https://stackoverflow.com/questions/73338018/how-to-get-an-object-by-id-in-django
+
+Int Pk URL structure: https://github.com/fabricius1/DjangoFilmsCRUD/blob/master/films/urls.py
+Adding extra fields in registration form: https://stackoverflow.com/questions/45708119/how-to-add-extra-fields-to-django-registration-form
+
+Creating filter for user and certain dog profiles: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
+
+For dates in create profile form TRY: date_added = forms.DateField(initial=today, widget=forms.SelectDateWidget(years=YEARS))
+Add calendar to select dates: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html
+
+Delete button: https://stackoverflow.com/questions/60616526/how-to-add-delete-button-in-each-row-of-my-table
+Delete button: https://stackoverflow.com/questions/55705666/django-tables2-with-edit-and-delete-buttons-how-to-do-it-properly
+
+Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
+
+Add deletion confirm to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
+
+ <!-- {% empty %}
+        <div>You have no profiles in this list.</div> -->
+
+Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
+
+Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
+
+Phone numbers: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field
+https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
+Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
+
+Amending Admin to bring in additional fields: https://stackoverflow.com/questions/48011275/custom-user-model-fields-abstractuser-not-showing-in-django-admin
+
+Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint
+
+To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
+
+To fix form.media issue to display calendars in create profile and create booking forms: https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template
+
+Creating view for rescues: if and statement for status of profile and rescue user from Booking model: https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django
+
 
 ### Unfixed Bugs
-- The bugs that remain unfixed are: 
-
-   - 
-
-   -  
+- The are no existing bugs that remain unfixed in the site however there are feature enhancements that I would like to incorporate into the functionality of the site but was time constrained in completing these items prior to submission.   
 
 ***
 ## Deployment
@@ -282,5 +351,5 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
  - In addition a big thank you to the following people for their assistance or inspiration in this project:
      - Kasia Bogucka: Our cohort facilitator for keeping us all on track and answering all and any of the many questions!
      - My cohort: For our weekly checkins and tips
-     - The genius Ger in Tutor Support for helping me resolve an issue where the information from the booking model was submitting but not displaying in the booking model in Admin. 
+     - The Tutor Support team for their assistance in resolving some bugs and in particular, Ger in Tutor Support for helping me resolve an issue where the information from the booking model was submitting but not displaying in the booking model in Admin. 
 

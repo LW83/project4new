@@ -1,40 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class=text-center>
-    <h1 class="mt-4 mb-4">Current Dogs Requiring Placement</h1>
-</div>
-<table class="table table-hover table-bordered table-sm">
-    <caption>List of Dogs in Pounds Looking for Placement</caption>
-    <tr>
-        <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
-        <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
-        <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
-        <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
-        <th>Urgency</th>
-    </tr>
-   {% for Profile in object_list %}
-        <tr>
-            <td>{{ Profile.pk }}</td>
-            <td>{{ Profile.profile_added }}</td>
-            <td>{{ Profile.last_updated }}</td>
-            <td>{{ Profile.pound.pound_official_name }}</td>
-            <td>{{ Profile.pound.get_county_display }}</td>
-            <td>{{ Profile.dog_breed }}</td>
-            <td>{{ Profile.get_gender_display }}</td>
-            <td>{{ Profile.approx_age }}</td>
-            <td>{{ Profile.get_neutered_display }}</td>
-            <td>{{ Profile.get_microchipped_display }}</td>
-            <td>{{ Profile.get_circumstance_display }}</td>
-            <td>{{ Profile.pound_entry_date }}</td>
-            <td>{{ Profile.hold_date }}</td>
-            <td>{{ Profile.get_status_display }}</td>
-            <td>{{ Profile.get_urgency_display }}</td>
-            {% if user.is_rescue %}
-            <td><a href="{% url 'create_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button"><i class="fa-solid fa-hand-holding-heart"></i> Rescue Me </a></td>
-            {% endif %}
-        </tr>
-    {% endfor %}
-</table>
+
+{% if user.is_authenticated %}
+
+    <div class=text-center>
+        <h2 class="m-4">Current Dogs Requiring Placement</h2>
+    </div>
+
+    <div class="col-11 mx-auto">
+        <table class="table table-hover table-bordered table-sm">
+            <caption>List of Dogs in Pounds Looking for Placement</caption>
+            <tr class="bg-primary">
+                <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
+                <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
+                <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
+                <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
+                <th>Urgency</th>{% if user.is_rescue %}<th>Rescue Me</th>{% endif %}
+            </tr>
+            {% for Profile in object_list %}
+                <tr>
+                    <td>{{ Profile.pk }}</td>
+                    <td>{{ Profile.profile_added }}</td>
+                    <td>{{ Profile.last_updated }}</td>
+                    <td>{{ Profile.pound.pound_official_name }}</td>
+                    <td>{{ Profile.pound.get_county_display }}</td>
+                    <td>{{ Profile.dog_breed }}</td>
+                    <td>{{ Profile.get_gender_display }}</td>
+                    <td>{{ Profile.approx_age }}</td>
+                    <td>{{ Profile.get_neutered_display }}</td>
+                    <td>{{ Profile.get_microchipped_display }}</td>
+                    <td>{{ Profile.get_circumstance_display }}</td>
+                    <td>{{ Profile.pound_entry_date }}</td>
+                    <td>{{ Profile.hold_date }}</td>
+                    <td>{{ Profile.get_status_display }}</td>
+                    <td>{{ Profile.get_urgency_display }}</td>
+                    {% if user.is_rescue %}
+                    <td class="text-center"><a href="{% url 'create_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button"><i class="fa-solid fa-hand-holding-heart"></i> Rescue Me </a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% else %}
+<p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
+{% endif %}
 
 {%endblock%}

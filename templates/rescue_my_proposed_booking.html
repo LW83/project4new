@@ -4,51 +4,46 @@
 
 {% if user.is_authenticated %}
 
-    <div class="text-center m-2">
+    <div class="text-center m-4">
         <h2 class="heading">My Proposed Bookings</h2>
     </div>
 
-    <table class="table table-hover table-bordered table-sm">
-        <tr>
-            <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
-            <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
-            <th>Neutered</th><th>Microchipped</th><th>Circumstance</th>
-            <th>Pound Entry Date</th><th>Hold Date</th><th>Status</th>
-            <th>Urgency</th><th>Rescue</th><th>Contact Number Provided</th>
-            <th>Proposed Collection</th><th>Edit Booking</th><th>Delete Booking</th>
-        </tr>
-        {% if Profile.dog_booking.rescue.username == self.request.username %}
-        {% for Profile in object_list %}
-            <tr>
-                <td>{{ Profile.pk }}</td>
-                <td>{{ Profile.profile_added }}</td>
-                <td>{{ Profile.last_updated }}</td>
-                <td>{{ Profile.pound.pound_official_name }}</td>
-                <td>{{ Profile.pound.get_county_display }}</td>
-                <td>{{ Profile.dog_breed }}</td>
-                <td>{{ Profile.get_gender_display }}</td>
-                <td>{{ Profile.approx_age }}</td>
-                <td>{{ Profile.get_neutered_display }}</td>
-                <td>{{ Profile.get_microchipped_display }}</td>
-                <td>{{ Profile.get_circumstance_display }}</td>
-                <td>{{ Profile.pound_entry_date }}</td>
-                <td>{{ Profile.hold_date }}</td>
-                <td>{{ Profile.get_status_display }}</td>
-                <td>{{ Profile.get_urgency_display }}</td>
-                {% for dog_booking in Profile.dog_booking.all %}
-                    <td>{{ dog_booking.rescue.rescue_official_name }}</td>
-                    <td>{{ dog_booking.phone_number }}</td>
-                    <td>{{ dog_booking.collection_date }}</td>
-                <td><a href="{% url 'edit_booking' dog_booking.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                {% endfor %}
-                <td><a onclick="return confirm('Are you sure do you want to delete this booking?')" href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
+    <div class="col-11 mx-auto">
+        <table class="table table-hover table-bordered table-sm">
+            <tr class="bg-primary">
+                <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
+                <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
+                <th>Neutered</th><th>Microchipped</th><th>Pound Entry Date</th>
+                <th>Urgency</th><th>Rescue</th><th>Contact Number Provided</th>
+                <th>Proposed Collection</th><th>Edit Booking</th><th>Delete Booking</th>
             </tr>
+        {% if Profile.dog_booking.rescue.username == self.request.username %}
+            {% for Profile in object_list %}
+                <tr>
+                    <td>{{ Profile.pk }}</td>
+                    <td>{{ Profile.profile_added }}</td>
+                    <td>{{ Profile.last_updated }}</td>
+                    <td>{{ Profile.pound.pound_official_name }}</td>
+                    <td>{{ Profile.pound.get_county_display }}</td>
+                    <td>{{ Profile.dog_breed }}</td>
+                    <td>{{ Profile.get_gender_display }}</td>
+                    <td>{{ Profile.approx_age }}</td>
+                    <td>{{ Profile.get_neutered_display }}</td>
+                    <td>{{ Profile.get_microchipped_display }}</td>
+                    <td>{{ Profile.pound_entry_date }}</td>
+                    <td>{{ Profile.get_urgency_display }}</td>
+                    {% for dog_booking in Profile.dog_booking.all %}
+                        <td>{{ dog_booking.rescue.rescue_official_name }}</td>
+                        <td>{{ dog_booking.phone_number }}</td>
+                        <td>{{ dog_booking.collection_date }}</td>
+                    <td class="text-center"><a href="{% url 'edit_booking' dog_booking.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                    {% endfor %}
+                    <td class="text-center"><a onclick="return confirm('Are you sure do you want to delete this booking?')" href="{% url 'delete_booking' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
+                </tr>
             {% endfor %}
-            {% endif %}
-        </tr>
-    </table>
-    
-</div>
+        {% endif %}
+        </table>
+    </div>
 
 {% else %}
 <p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
