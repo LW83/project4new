@@ -44,7 +44,11 @@
     </div>
 
 {% else %}
-<p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
+<div class="text-center">
+    <br>
+    <p>You do not have permission to see this page. Please login <a class="nav-link" href="{% url 'login' %}">here.</a></p>
+</div>
 {% endif %}
+    
 
 {%endblock%}

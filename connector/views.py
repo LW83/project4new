@@ -63,7 +63,7 @@ class ProfileList(LoginRequiredMixin, ListView):
 
 
 # View to display for pound user to create a dog profile
-class CreateProfile(CreateView):
+class CreateProfile(LoginRequiredMixin, CreateView):
     def get(self, request, *args, **kwargs):
 
         return render(
@@ -96,7 +96,7 @@ class CreateProfile(CreateView):
 
 
 # View to display for pound user to edit a dog profile
-class EditProfile(UpdateView):
+class EditProfile(LoginRequiredMixin, UpdateView):
 
     def get(self, request, id):
         profile_to_edit = get_object_or_404(Profile, id=id)
@@ -129,7 +129,7 @@ class EditProfile(UpdateView):
 
 
 # View to display for pound user to delete a dog profile
-class DeleteProfile(DeleteView):
+class DeleteProfile(LoginRequiredMixin, DeleteView):
 
     def get(self, request, id):
         profile_to_delete = get_object_or_404(Profile, id=id)
@@ -144,12 +144,12 @@ class DeleteProfile(DeleteView):
 
 
 # View to display logged in users dashboard
-class MyDashboard(TemplateView):
+class MyDashboard(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard.html'
 
 
 # View to display current hold/available dogs for pound user
-class MyProfileList(ListView):
+class MyProfileList(LoginRequiredMixin, ListView):
     model = Profile
     template_name = 'pound_my_current_dogs.html'
 
@@ -197,7 +197,7 @@ class MyProposedBookingList(LoginRequiredMixin, ListView):
 
 
 # View to allow rescue user to create a booking request for a dog
-class BookingRequest(CreateView):
+class BookingRequest(LoginRequiredMixin, CreateView):
     def get(self, request, id):
         profile_to_book = get_object_or_404(Profile, id=id)
         booking_form = BookingForm(instance=profile_to_book)
@@ -250,7 +250,7 @@ def AcceptBooking(request, id):
 
 
 # View to allow user to delete/reject a booking request
-class DeleteBooking(DeleteView):
+class DeleteBooking(LoginRequiredMixin, DeleteView):
 
     def get(self, request, id):
         profile_to_update = get_object_or_404(Profile, id=id)
@@ -288,7 +288,7 @@ class MyRescueBookingList(LoginRequiredMixin, ListView):
 
 
 # View to allow pound or user to confirm transfer to rescue
-class ConfirmCollection(View):
+class ConfirmCollection(LoginRequiredMixin, View):
 
     def get(self, request, id):
         profile_to_update = get_object_or_404(Profile, id=id)
@@ -318,7 +318,7 @@ class MyRescuedDogsList(LoginRequiredMixin, ListView):
 
 
 # View to all rescue user to edit booking
-class EditBooking(UpdateView):
+class EditBooking(LoginRequiredMixin, UpdateView):
 
     def get(self, request, id):
         booking_to_edit = get_object_or_404(Booking, id=id)
