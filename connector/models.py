@@ -53,7 +53,7 @@ class Profile(models.Model):
     urgency = models.IntegerField(choices=URGENCY, default=2)
 
     class Meta:
-        ordering = ['-urgency', 'profile_added']
+        ordering = ['urgency', 'profile_added']
 
 
 class Booking(models.Model):

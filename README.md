@@ -255,9 +255,6 @@ Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro
 
 Add deletion confirm to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
 
- <!-- {% empty %}
-        <div>You have no profiles in this list.</div> -->
-
 Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
 
 Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
@@ -346,6 +343,9 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
  - The following elements of code have specifically been inspired from the following sources: 
     - Code Institute for the deployment terminal 
     - [ABC](https://github.com/) for the folllowing: 
+    - Adding if empty: https://stackoverflow.com/questions/56604833/django-if-table-in-template-is-empty-display-something-else
+    - Pagination: Code Institute - I think therefore I blog
+    - User types & permission decorators: https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html
 
 ### People
  - In addition a big thank you to the following people for their assistance or inspiration in this project:

@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import login
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, CreateView, UpdateView, DeleteView, TemplateView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator # Test & delete
+from django.views.generic import (View, CreateView, UpdateView, DeleteView,
+                                  TemplateView, ListView)
 from django.urls import reverse, reverse_lazy  # Can probably delete
 from itertools import chain  # Can probably delete
+
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
-from .serializers import ProfileSerializer, ProfileBookingSerializer
+from .serializers import ProfileSerializer, ProfileBookingSerializer # Test & delete
+from .decorators import rescue_required, pound_required # Test & delete
 
 
 # View to display homepage
@@ -53,17 +58,29 @@ class RescueSignUpView(CreateView):
         return redirect('profiles')
 
 
+def rescue_check(user):
+    return user.is_rescue
+
+
+def pound_check(user):
+    return user.is_pound
+
+
 # View to display all dogs listed that have a status of on hold or available
 class ProfileList(LoginRequiredMixin, ListView):
     model = Profile
     queryset = Profile.objects.filter(status=0) | Profile.objects.filter(status=1)
     context_object_name = 'profiles'
     template_name = 'profiles.html'
-    paginate_by = 50
+    paginate_by = 25
 
 
 # View to display for pound user to create a dog profile
-class CreateProfile(LoginRequiredMixin, CreateView):
+class CreateProfile(UserPassesTestMixin, CreateView):
+
+    def test_func(self):
+        return self.request.user.is_pound
+    
     def get(self, request, *args, **kwargs):
 
         return render(
@@ -96,7 +113,10 @@ class CreateProfile(LoginRequiredMixin, CreateView):
 
 
 # View to display for pound user to edit a dog profile
-class EditProfile(LoginRequiredMixin, UpdateView):
+class EditProfile(UserPassesTestMixin, UpdateView):
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get(self, request, id):
         profile_to_edit = get_object_or_404(Profile, id=id)
@@ -129,7 +149,10 @@ class EditProfile(LoginRequiredMixin, UpdateView):
 
 
 # View to display for pound user to delete a dog profile
-class DeleteProfile(LoginRequiredMixin, DeleteView):
+class DeleteProfile(UserPassesTestMixin, DeleteView):
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get(self, request, id):
         profile_to_delete = get_object_or_404(Profile, id=id)
@@ -149,9 +172,13 @@ class MyDashboard(LoginRequiredMixin, TemplateView):
 
 
 # View to display current hold/available dogs for pound user
-class MyProfileList(LoginRequiredMixin, ListView):
+class MyProfileList(UserPassesTestMixin, ListView):
     model = Profile
     template_name = 'pound_my_current_dogs.html'
+    paginate_by = 25
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get_queryset(self):
         return Profile.objects.filter(
@@ -161,9 +188,12 @@ class MyProfileList(LoginRequiredMixin, ListView):
 
 
 # View to display historic dogs for pound user
-class MyPreviousProfileList(LoginRequiredMixin, ListView):
+class MyPreviousProfileList(UserPassesTestMixin, ListView):
     model = Profile
     template_name = 'pound_my_previous_dogs.html'
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get_queryset(self):
         return Profile.objects.filter(
@@ -173,9 +203,12 @@ class MyPreviousProfileList(LoginRequiredMixin, ListView):
 
 
 # View to display current bookings for dogs for pound user
-class MyBookingList(LoginRequiredMixin, ListView):
+class MyBookingList(UserPassesTestMixin, ListView):
     model = Profile
     template_name = 'pound_my_bookings.html'
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get_queryset(self):
         return Profile.objects.filter(
@@ -185,9 +218,12 @@ class MyBookingList(LoginRequiredMixin, ListView):
 
 
 # View to display current proposed bookings for dogs for pound user
-class MyProposedBookingList(LoginRequiredMixin, ListView):
+class MyProposedBookingList(UserPassesTestMixin, ListView):
     model = Profile
     template_name = 'pound_my_proposed_bookings.html'
+
+    def test_func(self):
+        return self.request.user.is_pound
 
     def get_queryset(self):
         return Profile.objects.filter(
@@ -197,7 +233,11 @@ class MyProposedBookingList(LoginRequiredMixin, ListView):
 
 
 # View to allow rescue user to create a booking request for a dog
-class BookingRequest(LoginRequiredMixin, CreateView):
+class BookingRequest(UserPassesTestMixin, CreateView):
+
+    def test_func(self):
+        return self.request.user.is_rescue
+
     def get(self, request, id):
         profile_to_book = get_object_or_404(Profile, id=id)
         booking_form = BookingForm(instance=profile_to_book)
@@ -274,17 +314,23 @@ class DeleteBooking(LoginRequiredMixin, DeleteView):
 
 
 # View to display current proposed bookings for dogs for rescue user
-class MyRescueProposedBookingList(LoginRequiredMixin, ListView):
+class MyRescueProposedBookingList(UserPassesTestMixin, ListView):
     model = Profile
     queryset = Profile.objects.filter(status=8)
     template_name = 'rescue_my_proposed_booking.html'
 
+    def test_func(self):
+        return self.request.user.is_rescue
+
 
 # View to display current bookings for dogs for rescue user
-class MyRescueBookingList(LoginRequiredMixin, ListView):
+class MyRescueBookingList(UserPassesTestMixin, ListView):
     model = Profile
     queryset = Profile.objects.filter(status=2)
     template_name = 'rescue_my_bookings.html'
+
+    def test_func(self):
+        return self.request.user.is_rescue
 
 
 # View to allow pound or user to confirm transfer to rescue
@@ -311,14 +357,21 @@ class ConfirmCollection(LoginRequiredMixin, View):
 
 
 # View to display rescued dogs for rescue user
-class MyRescuedDogsList(LoginRequiredMixin, ListView):
+class MyRescuedDogsList(UserPassesTestMixin, ListView):
     model = Profile
     queryset = Profile.objects.filter(status=3)
     template_name = 'rescue_my_rescued_dogs.html'
+    paginate_by = 25
+
+    def test_func(self):
+        return self.request.user.is_rescue
 
 
 # View to all rescue user to edit booking
-class EditBooking(LoginRequiredMixin, UpdateView):
+class EditBooking(UserPassesTestMixin, UpdateView):
+
+    def test_func(self):
+        return self.request.user.is_rescue
 
     def get(self, request, id):
         booking_to_edit = get_object_or_404(Booking, id=id)

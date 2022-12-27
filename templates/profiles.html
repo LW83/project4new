@@ -39,8 +39,23 @@
                     <td class="text-center"><a href="{% url 'create_booking' Profile.pk %}" class="btn btn-sm btn-success" role="button"><i class="fa-solid fa-hand-holding-heart"></i> Rescue Me </a></td>
                     {% endif %}
                 </tr>
+            {% empty %}
+            <tr><td class="text-center" colspan="15">Currently no data available to display</td></tr>
             {% endfor %}
         </table>
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                {% endif %}
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
     </div>
 
 {% else %}

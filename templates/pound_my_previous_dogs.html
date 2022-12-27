@@ -33,6 +33,8 @@
                     <td class="text-center"><a href="{% url 'edit_profile' Profile.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                     <td class="text-center"><a onclick="return confirm('Are you sure do you want to delete this profile?')" href="{% url 'delete_profile' Profile.pk %}"><i class="fa-solid fa-trash"></i></a></td>
                 </tr>
+            {% empty %}
+            <tr><td class="text-center" colspan="13">Currently no data available to display</td></tr>
             {% endfor %}
         </table>
     </div>
