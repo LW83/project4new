@@ -17,26 +17,24 @@
                 <th>Pound Entry Date</th><th>Status</th>
                 <th>Urgency</th><th>Collected Date</th>
             </tr>
-            {% for Profile in object_list %}
-                <tr>
-                    <td>{{ Profile.pk }}</td>
-                    <td>{{ Profile.profile_added }}</td>
-                    <td>{{ Profile.last_updated }}</td>
-                    <td>{{ Profile.pound.pound_official_name }}</td>
-                    <td>{{ Profile.pound.get_county_display }}</td>
-                    <td>{{ Profile.dog_breed }}</td>
-                    <td>{{ Profile.get_gender_display }}</td>
-                    <td>{{ Profile.approx_age }}</td>
-                    <td>{{ Profile.get_neutered_display }}</td>
-                    <td>{{ Profile.get_microchipped_display }}</td>
-                    <td>{{ Profile.get_circumstance_display }}</td>
-                    <td>{{ Profile.pound_entry_date }}</td>
-                    <td>{{ Profile.get_status_display }}</td>
-                    <td>{{ Profile.get_urgency_display }}</td>
-                    {% for dog_booking in Profile.dog_booking.all %}
-                        <td>{{ dog_booking.collection_date }}</td>
-                    {% endfor %}
-                </tr>
+            {% for booking in object_list %}
+            <tr>
+                <td>{{ booking.profile.pk }}</td>
+                <td>{{ booking.profile.profile_added }}</td>
+                <td>{{ booking.profile.last_updated }}</td>
+                <td>{{ booking.profile.pound.pound_official_name }}</td>
+                <td>{{ booking.profile.pound.get_county_display }}</td>
+                <td>{{ booking.profile.dog_breed }}</td>
+                <td>{{ booking.profile.get_gender_display }}</td>
+                <td>{{ booking.profile.approx_age }}</td>
+                <td>{{ booking.profile.get_neutered_display }}</td>
+                <td>{{ booking.profile.get_microchipped_display }}</td>
+                <td>{{ booking.profile.get_circumstance_display }}</td>
+                <td>{{ booking.profile.pound_entry_date }}</td>
+                <td>{{ booking.profile.get_status_display }}</td>
+                <td>{{ booking.profile.get_urgency_display }}</td>
+                <td>{{ booking.collection_date }}</td>
+            <tr>
             {% empty %}
             <tr><td class="text-center" colspan="15">Currently no data available to display</td></tr>
             {% endfor %}

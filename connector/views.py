@@ -314,23 +314,23 @@ class DeleteBooking(LoginRequiredMixin, DeleteView):
 
 
 # View to display current proposed bookings for dogs for rescue user
-class MyRescueProposedBookingList(UserPassesTestMixin, ListView):
+class MyRescueProposedBookingList(ListView):
     model = Profile
-    queryset = Profile.objects.filter(status=8)
-    template_name = 'rescue_my_proposed_booking.html'
+    template_name = 'rescue_my_proposed_bookings.html'
 
-    def test_func(self):
-        return self.request.user.is_rescue
+    def get_queryset(self):
+        queryset=Booking.objects.select_related().filter(rescue=self.request.user, profile__status=8)
+        return queryset
 
 
 # View to display current bookings for dogs for rescue user
-class MyRescueBookingList(UserPassesTestMixin, ListView):
+class MyRescueBookingList(ListView):
     model = Profile
-    queryset = Profile.objects.filter(status=2)
     template_name = 'rescue_my_bookings.html'
 
-    def test_func(self):
-        return self.request.user.is_rescue
+    def get_queryset(self):
+        queryset=Booking.objects.select_related().filter(rescue=self.request.user, profile__status=2)
+        return queryset
 
 
 # View to allow pound or user to confirm transfer to rescue
@@ -359,9 +359,12 @@ class ConfirmCollection(LoginRequiredMixin, View):
 # View to display rescued dogs for rescue user
 class MyRescuedDogsList(UserPassesTestMixin, ListView):
     model = Profile
-    queryset = Profile.objects.filter(status=3)
     template_name = 'rescue_my_rescued_dogs.html'
     paginate_by = 25
+
+    def get_queryset(self):
+        queryset=Booking.objects.select_related().filter(rescue=self.request.user, profile__status=3)
+        return queryset
 
     def test_func(self):
         return self.request.user.is_rescue
@@ -500,3 +503,53 @@ class EditBooking(UserPassesTestMixin, UpdateView):
 #                 "profiles": profiles,
 #             },
 #         )
+
+
+# class MyRescueProposedBookingList(ListView):
+#     model = Booking
+#     template_name = 'rescue_my_proposed_bookings.html'
+
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         return queryset.filter(rescue=self.request.user)
+
+# class MyRescueProposedBookingList(ListView):
+#     model = Booking
+#     template_name = 'rescue_my_proposed_bookings.html'
+
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         rescue_bookings = queryset.filter(rescue=self.request.user)
+#         filtered_bookings = rescue_bookings.filter(rescue_bookings.profile.status==8)
+#         return filtered_bookings 
+
+
+# class MyRescueProposedBookingList(ListView):
+#     model = Booking
+#     template_name = 'rescue_my_bookings.html'
+ 
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         return queryset.filter(rescue=self.request.user)
+
+#         def get_context_data(self, **kwargs):
+#             context = super(MyRescueProposedBookingList, self).get_context_data(**kwargs)
+#             context['profiles'] = Profile.objects.filter(status=8)
+#             return context
+    
+#         return context
+
+# class MyRescueProposedBookingList(View):
+
+#     def get_queryset(self, request):
+#             queryset = Profile.objects.filter(status=8)
+#             expanded_queryset = queryset.select_related('booking').all()
+#             bookings = expanded_queryset.filter(rescue=self.request.user)
+
+#             return render(
+#                 request,
+#                 "rescue_my_proposed_bookings.html",
+#                 {
+#                     "bookings": bookings,
+#                 },
+#             )

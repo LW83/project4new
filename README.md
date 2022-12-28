@@ -346,6 +346,7 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
     - Adding if empty: https://stackoverflow.com/questions/56604833/django-if-table-in-template-is-empty-display-something-else
     - Pagination: Code Institute - I think therefore I blog
     - User types & permission decorators: https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html
+    - Filtering rescue view: https://stackoverflow.com/questions/41252033/django-filter-using-select-related
 
 ### People
  - In addition a big thank you to the following people for their assistance or inspiration in this project:
