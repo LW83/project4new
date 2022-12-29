@@ -289,7 +289,7 @@ def AcceptBooking(request, id):
         return redirect('my_proposed_bookings')
 
 
-# View to allow user to delete/reject a booking request - ORIGINAL
+# View to allow pound user to delete/reject a booking request
 class DeleteBooking(LoginRequiredMixin, DeleteView):
 
     def get(self, request, id):
@@ -307,13 +307,53 @@ class DeleteBooking(LoginRequiredMixin, DeleteView):
             return redirect('my_dashboard')
 
 
+# View to all rescue user to edit booking
+class EditBooking(UserPassesTestMixin, UpdateView):
+
+    def test_func(self):
+        return self.request.user.is_rescue
+
+    def get(self, request, id):
+        booking_to_edit = get_object_or_404(Booking, id=id)
+        edit_booking_form = BookingForm(instance=booking_to_edit)
+        if booking_to_edit.rescue == request.user:
+            return render(
+                request,
+                "edit_booking.html",
+                {
+                    "edit_booking_form": edit_booking_form,
+                }
+            )
+        else:
+            return redirect('my_dashboard')
+
+    def post(self, request, id):
+        booking_to_edit = get_object_or_404(Booking, id=id)
+        edit_booking_form = BookingForm(
+                         request.POST, request.FILES, instance=booking_to_edit)
+        expanded_booking = Booking.objects.select_related('profile').get(id=id)
+        if booking_to_edit.rescue == request.user:
+            if edit_booking_form.is_valid():
+                edit_booking_form.save()
+                expanded_booking.profile.status = 8
+                expanded_booking.profile.save()
+                messages.success(request, 'Booking updated successfully.')
+                return redirect('my_dashboard')
+            else:
+                messages.error(request,
+                               'Booking update unsuccessful,'
+                               'please try again.')
+                return redirect('my_dashboard')
+
+
+# View to allow rescue user to delete/reject a booking request 
 class RescueDeleteBooking(LoginRequiredMixin, DeleteView):
 
     def get(self, request, id):
         booking_to_delete = get_object_or_404(Booking, id=id)
-        expanded_booking = Booking.objects.select_related().get(id=id)
+        expanded_booking = Booking.objects.select_related('profile').get(id=id)
         if booking_to_delete.rescue == self.request.user:
-            expanded_booking.profile__status=1
+            expanded_booking.profile.status = 1
             expanded_booking.profile.save()
             booking_to_delete.delete()
             messages.success(request, 'Booking was successfully deleted.')
@@ -380,38 +420,3 @@ class MyRescuedDogsList(UserPassesTestMixin, ListView):
     def test_func(self):
         return self.request.user.is_rescue
 
-
-# View to all rescue user to edit booking
-class EditBooking(UserPassesTestMixin, UpdateView):
-
-    def test_func(self):
-        return self.request.user.is_rescue
-
-    def get(self, request, id):
-        booking_to_edit = get_object_or_404(Booking, id=id)
-        edit_booking_form = BookingForm(instance=booking_to_edit)
-        if booking_to_edit.rescue == request.user:
-            return render(
-                request,
-                "edit_booking.html",
-                {
-                    "edit_booking_form": edit_booking_form,
-                }
-            )
-        else:
-            return redirect('my_dashboard')
-
-    def post(self, request, id):
-        booking_to_edit = get_object_or_404(Booking, id=id)
-        edit_booking_form = BookingForm(
-                         request.POST, request.FILES, instance=booking_to_edit)
-        if booking_to_edit.rescue == request.user:
-            if edit_booking_form.is_valid():
-                edit_booking_form.save()
-                messages.success(request, 'Booking updated successfully.')
-                return redirect('my_dashboard')
-            else:
-                messages.error(request,
-                               'Booking update unsuccessful,'
-                               'please try again.')
-                return redirect('my_dashboard')
