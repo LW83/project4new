@@ -2,7 +2,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
+{% if user.is_rescue %}
 
     <div class="text-center m-4">
         <h2 class="heading">My Bookings</h2>
@@ -37,13 +37,19 @@
                     <td>{{ booking.collection_date }}</td>
                     <td class="text-center"><a href="{% url 'edit_booking' booking.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                     <td class="text-center"><a onclick="return confirm('Are you sure do you want to delete this booking?')" href="{% url 'rescue_delete_booking' booking.pk %}"><i class="fa-solid fa-trash"></i></a></td>
-                    <td class="text-center"><a href="{% url 'confirm_collection' booking.profile.pk %}" class="btn btn-sm btn-success" role="button">Collected</a></td>
+                    <td class="text-center"><a href="{% url 'rescue_confirm_collection' booking.pk %}" class="btn btn-sm btn-success" role="button">Collected</a></td>
                 </tr>
             {% empty %}
             <tr><td class="text-center" colspan="18">Currently no data available to display</td></tr>
             {% endfor %}
         </table>
     </div>
+
+{% elif user.is_authenticated %}
+<div class="text-center">
+    <br>
+    <p>You do not have permission to view this page based on your current profile. Please return to your dashbord <a class="nav-link" href="{% url 'my_dashboard' %}">here.</a></p>
+</div>    
 
 {% else %}
 <div class="text-center">

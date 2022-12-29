@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% if user.is_authenticated %}
+{% if user.is_rescue %}
 
 <div class="text-center">
   <h2 class="m-4">Request to Rescue</h2>
@@ -20,6 +20,12 @@
         <a href="{% url 'profiles' %}" class="btn btn-outline-secondary mt-2" role="button">Cancel</a>
       </form>
     </div>
+</div>
+
+{% elif user.is_authenticated %}
+<div class="text-center">
+    <br>
+    <p>You do not have permission to view this page based on your current profile. Please return to your dashbord <a class="nav-link" href="{% url 'my_dashboard' %}">here.</a></p>
 </div>
 
 {% else %}

@@ -47,4 +47,7 @@ urlpatterns = [
          views.EditBooking.as_view(), name='edit_booking'),
     path('rescue_delete_booking/<int:id>', views.RescueDeleteBooking.as_view(),
          name='rescue_delete_booking'),
+    path('rescue_confirm_collection/<int:id>',
+         views.RescueConfirmCollection.as_view(),
+         name='rescue_confirm_collection'),
 ]
