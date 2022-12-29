@@ -24,6 +24,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Logic**](#logic)
     * [**Design**](#design)
     * [**Wireframes**](#wireframes)
+    * [**Database Planning**](#database-planning)
   * [**Existing Features**](#existing-features)
     * [**Landing Page**](#landing-page)
     * [**User Dashboards**](#user-dashboards)
@@ -52,7 +53,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 - __Target Audience__
 
-   - The target audience for this application are local county council Dog Pounds and animal rescue shelters. This app is not intended for use by the general public.
+   - The target audience for this application are local county council Dog Pounds and animal rescue shelters. This site is not intended for use by the general public.
 
 - __User Stories__
 
@@ -89,7 +90,9 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
    - As an Admin user, I want to be able to manage the permissions of Users of Connector.
    - As an Admin user, I want to be able to edit the details for Users if required. 
    - As an Admin user, I want to be able to delete users as required. 
-   - As an Admin user, I want to be able to edit and delete profiles and bookings of users if required. 
+   - As an Admin user, I want to be able to edit and delete profiles created by users if required. 
+   - As an Admin user, I want to be able to edit and delete bookings created by users if required. 
+
 
 - __Site Aims__
  
@@ -119,51 +122,160 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 ### Wireframes
 
+
+### Database Planning
 ***
 ## Existing Features 
 
 ### Landing Page
 
-__Navigation__
+![Landing Page Screenshot](./static/images/readme/homepage.png)
 
-      Signed out 
+ - On arrival at the page, their is a header with the site brand name (Connector) and slogan ('Giving Pound Dogs their Second Chance').
 
 __Log In__
 
-  - The landing page requires
+  - The landing page requires the user to either Log In or Register in order to proceed with using the site further. 
+  - Upon selecting Login, the user is taken to the log in screen to enter their information. 
+  - From this view, the user also has a Register or Login button in the top right corner of their screen as part of the header. This is in case the user easily wishes to navigate to Register instead of Login.
+
+! [LogIn](./static/images/readme/login.png)
+
+  - If the details entered are incorrect, they will receive an error notification.
+
+![Login Error](./static/images/readme/login_error.png)
+
+__Register__
+
+ - If the user opts to Register from the landing page they will be taken to the Sign Up screen to select which type of user they wish to register as; Pound or Rescue.
+
+![Signup Page](./static/images/readme/signup_page.png)
+
+ - If the user selects Pound they will be taken to a form to create a Pound User account. 
+
+![Pound Register](./static/images/readme/pound_register.png)
+
+ - If the user selects Rescue they will be taken to a form to create a Rescue User account.
+
+![Rescue Register](./static/images/readme/rescue_register.png)
+
+ - If the registration form is not validly completed for either type of user, the user will be notified of the errors to be corrected in order to be able to create their account.
+
+![Registration Error](./static/images/readme/registration_error.png)
 
 ### User Dashboards
 
 __Navigation__
-  - Signed in 
+  - Once logged in the user will be taken to the dashboard view specific to their user type. 
+  - In addition, the navigation bar will now display that they are logged in as user (example) Joe Bloggs and display a Log Out and My Dashboard button to faciliate easy navigation of the site. 
 
-  Pound Dashboard
-   - All
-   - My
-   - Add
-   - Proposed
-   - Bookings
-   - Previous
+![Rescue Navigation](./static/images/readme/rescue_nav.png)
+![Pound Navigation](./static/images/readme/pound_nav.png)
 
-  Rescue Dashboard
-  - All
-   - My
-   - Add
-   - Proposed
-   - Bookings
-   - Previous
+__Pound Dashboard__
+   - For Pound users, their dashboard will allow them to navigate to the following views: 
+       - See All Dogs: displays all dogs currently uploaded to Connector and with a Hold (will be available once Hold period completed) or Available status.
+       - Add a Dog: displays a form for the Pound user to create a dog profile on the site.
+       - My Current Dogs: displays all dogs with Available/Hold status that are specific to that Pound user.
+       - My Previous Dogs: displays all of that Pound user's dogs with a status of Transferred to Rescue, Rehomed, Reclaimed, PTS or Death Natural Causes.
+       - My Booked Dogs: displays all of that Pound user's dogs with a status of Booked and the respective booking information for the Rescue.
+       - My Proposed Bookings: display all of that Pound user's dogs with a proposed booking and requires acceptance or rejection by the Pound user.
 
-   Logout
+![Pound Dashboard](./static/images/readme/pound_dashboard.png)
+
+__Rescue Dashboard__
+  - For Rescue users, their dashboard will allow them to navigate to the following views: 
+       - See All Dogs: displays all dogs currently uploaded to Connector and with a Hold (will be available once Hold period completed) or Available status.
+       - My Rescued Dogs: displays all of the dogs with a status of Transferred to Rescue for that Rescue user.
+       - My Booked Dogs: displays all of the dogs with a status of Booked where the booking party is the Rescue user.
+       - My Proposed Bookings: display all of the dogs with a proposed booking from that Rescue user that is pending acceptance or rejection by the Pound user.
+
+__Logout__
+  - Upon logging out, the user is returned to the landing page of the site, displaying the Login and Register buttons.
 
 ### Views
 
-  - 
+__Pound Views__
+
+  - See All Dogs: For See All Dogs, a Pound User can view the detailed information uploaded for each dog that is looking for placement. This will include dogs from their Pound and others with a status of Hold or Available.
+  - These dog profiles are sorted based on urgency with the view to tryin to get placement for the most in need dogs as a priority.
+
+![All Dogs Pound](./static/images/readme/all_dogs_pound.png)
+
+  - Add a Dog: From Add a Dog, a Pound User is taken to a form whereby they can create a profile for display on the site. This form includes validation if any fields are left unpopulated. 
+
+![Add a Profile](./static/images/readme/create_a_profile.png)
+
+  - Once a profile has been created, the Pound User will see a message to confirm that the profile has been successfully created and be taken back to the See All Dogs view so they can see the profile that has been added. 
+
+![Profile Creation](./static/images/readme/profile_sucess.png)
+
+  - My Current Dogs: From My Current Dogs, a Pound User can see all of their dogs that have a status of Hold or Available. From this view, they can individually edit or delete any of these profiles. 
+
+![My Current Dogs](./static/images/readme/my_current_dogs.png)
+
+  - Edit a Profile: If the Pound user selects to edit a profile they are taken to a form prepopulated with the information for that dog so that it can be edited. If the user deletes information without replacing, an error will be displayed and the profile update cannot be saved.
+
+![Edit a Profile](./static/images/readme/edit_profile.png)
+![Edit a Profile Error](./static/images/readme/edit_profile_error.png)
+
+  - When the profile is successfully updated, the user will be notified and returned to the See All Dogs view of the site. 
+
+![Edit a Profile Success](./static/images/readme/profile_edit_success.png)
+
+  - Delete a Profile: If the Pound user selects to delete a profile they are asked to confirm this action. Once confirmed they will again receive a message to confirm successful deletion. 
+
+![Delete Confirmation](./static/images/readme/delete_confirm_request.png)
+![Delete Success](./static/images/readme/deletion_confirmation.png)
+
+ - My Previous Dogs: From My Previous Dogs, a Pound User can see all of their dogs that have a status of Reclaimed, Rehomed, PTS, Transferred to Rescue or Death Natural Causes. From this view, they can individually edit or delete any of these profiles if required.
+
+![My Previous Dogs](./static/images/readme/previous_dogs.png)
+
+ - My Booked Dogs: From My Bookings, a Pound User can see all of their dogs that have a confirmed booking by a Rescue. From this view, they can individually delete a booking or confirm the collection of a dog by the Rescue.
+
+![My Booked Dogs](./static/images/readme/)
+
+ - Where a Pound deletes a booking, the profile status for the dog is updated to Available and the profile will now display in the users My Current Dogs view. Upon deletion the user receives a request to confirm the rejection and notification of successful rejection upon confirmation.
+
+![Pound Booking Delete Confirm](./static/images/readme/booking_delete_confirm.png)
+
+  - Where a Pound confirms collection, the profile status for the dog is updated to Transferred to Rescue and the profile will now display in the users My Previous Dogs view.
+
+![Pound Collection Confirmation](./static/images/readme/pound_collection_confirmed.png)
+
+ - My Proposed Bookings: From My Proposed Bookings, a Pound User can see all of their dogs that have a booking proposed by a Rescue. From this view, they can individually accept or reject the proposed booking.
+
+![Pound Proposed Bookings](./static/images/readme/pound_proposed_bookings.png)
+
+ - Accept a Booking: Where a Pound accepts a booking, the profile status for the dog is updated to Booked and the profile will now display in the users My Bookings view. Upon acceptance the user receives notification of successful acceptance.
+
+![Pound Booking Accepted](./static/images/readme/booking_accepted.png)
+
+ - Reject a Booking: Where a Pound rejects a booking, the profile status for the dog is updated to Available and the profile will now display in the users My Current Dogs view. Upon rejection the user receives a request to confirm the rejection and notification of successful rejection upon confirmation.
+
+
+
+
+
+__Rescue Views__
+
+  - See All Dogs: For See All Dogs, a Rescue User can view the detailed information uploaded for each dog that is looking for placement. This will include dogs with a status of Hold or Available. For Rescue Users, they can also see a Rescue Me button whereby they can create a booking request against any dog profile.
+  - These dog profiles are sorted based on urgency with the view to tryin to get placement for the most in need dogs as a priority.
+
+![All Dogs Rescue](./static/images/readme/all_dogs_rescue.png)
+
+       - My Rescued Dogs: displays all of the dogs with a status of Transferred to Rescue for that Rescue user.
+       - My Booked Dogs: displays all of the dogs with a status of Booked where the booking party is the Rescue user.
+       - My Pro
+
 
 ***
 ## Feature Enhancements
 
  - There are a number of feature enhancements that I believe would be beneficial to the site but which I ran out of time to try and incorporate prior to the submission deadline for this project. These include: 
 
+     - Optimising the site display for viewing on mobile devices. Currently due to the tables and level of detail required this is not optimal for mobile and the site really needs to be used on a laptop or desktop device. It would have possible to exclude information from the tables to more easily suit a mobile view but this would have been compromising functionality just for visual purposes which I think would have undermined the usefulness of the site.
      - Adding conditional formatting to the Current Dogs Available for Placement dashboard to color code the urgency cell of the table and to easily enable a Rescue user to identify profiles of dogs most in need of placement. 
      - Adding filters to the dashboards to better allow the User to narrow the information down for their specific need e.g. Rescue users to be able to filter based on location of pounds in their county.
      - Adding a notification functionality so that users receive a notification for updates to profiles that they are a a booking party of e.g. If a Rescue user updates a booking that a notification is sent to the Pound to explicit state this change. 
@@ -314,6 +426,8 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
 
 ### Python Libraries & Modules Utilised
   - 
+ -   - Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case 
+
 
 ***
 ## Credits  

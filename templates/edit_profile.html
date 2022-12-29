@@ -7,7 +7,7 @@
 {% if user.is_pound %}
 
 <div class="text-center">
-<h2 class="m-4">Edit a Profile</h2>
+  <h2 class="m-4">Edit a Profile</h2>
 </div>
 
 <div class="row justify-content-center">
@@ -16,8 +16,8 @@
       <form method="post">
         {% csrf_token %}
         {{ edit_profile_form|crispy }}
-        <button type="submit" class="btn btn-success mt-2">Save</button>
-        <a href="{% url 'profiles' %}" class="btn btn-outline-secondary mt-2" role="button">Cancel</a>
+        <button type="submit" class="btn btn-success mt-2 mb-2">Save</button>
+        <a href="{% url 'profiles' %}" class="btn btn-outline-secondary mt-2 mb-2" role="button">Cancel</a>
       </form>
     </div>
 </div>

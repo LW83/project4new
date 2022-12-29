@@ -14,7 +14,7 @@
                 <th>Profile ID</th><th>Date Added</th><th>Last Updated</th>
                 <th>Pound</th><th>Location</th><th>Breed</th><th>Gender</th><th>Appox Age</th>
                 <th>Neutered</th><th>Microchipped</th><th>Pound Entry Date</th>
-                <th>Urgency</th><th>Rescue</th><th>Contact Number Provided</th>
+                <th>Urgency</th><th>Contact Number Provided</th>
                 <th>Proposed Collection</th><th>Edit Booking</th><th>Delete Booking</th>
                 <th>Confirm Collection</th>
             </tr>
@@ -32,7 +32,6 @@
                     <td>{{ booking.profile.get_microchipped_display }}</td>
                     <td>{{ booking.profile.pound_entry_date }}</td>
                     <td>{{ booking.profile.get_urgency_display }}</td>
-                    <td>{{ booking.rescue.rescue_official_name }}</td>
                     <td>{{ booking.phone_number }}</td>
                     <td>{{ booking.collection_date }}</td>
                     <td class="text-center"><a href="{% url 'edit_booking' booking.pk %}"><i class="fa-solid fa-pen-to-square"></i></a></td>

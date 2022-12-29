@@ -65,6 +65,7 @@ class ProfileList(LoginRequiredMixin, ListView):
 
 
 # View to display for pound user to create a dog profile
+# Based on code from keelback-code Out-Proud
 class CreateProfile(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
@@ -99,6 +100,7 @@ class CreateProfile(LoginRequiredMixin, CreateView):
 
 
 # View to display for pound user to edit a dog profile
+# Based on code from keelback-code Out-Proud
 class EditProfile(LoginRequiredMixin, UpdateView):
 
     def get(self, request, id):
