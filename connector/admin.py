@@ -3,6 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from .models import User, Profile, Booking
 
 
+# To enable cutomisation of admin dashboard view based on User fields added
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         *UserAdmin.fieldsets,
@@ -28,6 +29,7 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(User, CustomUserAdmin)
 
 
+# To add Profile model to admin to enable management of entries
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'pound', 'dog_breed', 'profile_added', 'status',
@@ -36,6 +38,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('status', 'profile_added', 'urgency')
 
 
+# To add Booking model to admin to enable management of entries
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     list_display = ('id', 'rescue', 'collection_date', 'phone_number',

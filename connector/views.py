@@ -4,7 +4,6 @@ from django.contrib.auth import login
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required, user_passes_test
-# from django.utils.decorators import method_decorator  # Test & delete
 from django.views.generic import (View, CreateView, UpdateView, DeleteView,
                                   TemplateView, ListView)
 # from django.urls import reverse, reverse_lazy  # Can probably delete
@@ -12,8 +11,6 @@ from django.views.generic import (View, CreateView, UpdateView, DeleteView,
 
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
-# from .serializers import ProfileSerializer, ProfileBookingSerializer  # Test
-# from .decorators import rescue_required, pound_required  # Test & delete
 
 
 # View to display homepage
