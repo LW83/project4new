@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 
-# Create your models here.
 COUNTY = ((0, "Antrim"), (1, "Armagh"), (2, "Carlow"), (3, "Cavan"),
           (4, "Clare"), (5, "Cork"), (6, "Derry"), (7, "Donegal"), (8, "Down"),
           (9, "Dublin"), (10, "Fermanagh"), (11, "Galway"), (12, "Kerry"),
@@ -13,6 +12,7 @@ COUNTY = ((0, "Antrim"), (1, "Armagh"), (2, "Carlow"), (3, "Cavan"),
           (29, "Westmeath"), (30, "Wexford"), (31, "Wicklow"))
 
 
+# Create customised user model.
 class User(AbstractUser):
     is_pound = models.BooleanField('pound status', default=False)
     is_rescue = models.BooleanField('rescue status', default=False)
@@ -36,6 +36,7 @@ CIRCUMSTANCE = ((0, "Stray"), (1, "Surrender"), (2, "Seized"), (3, "Other"))
 GENDER = ((0, "Male"), (1, "Female"))
 
 
+# Create model for dog profiles on site.
 class Profile(models.Model):
     profile_added = models.DateField(auto_now_add=True)
     last_updated = models.DateField(auto_now=True)
@@ -56,6 +57,7 @@ class Profile(models.Model):
         ordering = ['urgency', 'profile_added']
 
 
+# Create model for bookings of dog profiles.
 class Booking(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE,
                                 related_name='dog_booking')

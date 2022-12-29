@@ -4,10 +4,14 @@ from bootstrap_datepicker_plus.widgets import DatePickerInput
 from phonenumber_field.formfields import PhoneNumberField
 from .models import User, Profile, Booking
 
+
+# Form to create pound user
+# Based on code from https://simpleisbetterthancomplex.com/
 class PoundSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "pound_official_name", "county", "password1", "password2")
+        fields = ("username", "pound_official_name", "county", "password1",
+                  "password2")
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -19,10 +23,13 @@ class PoundSignUpForm(UserCreationForm):
         return user
 
 
+# Form to create rescue user
+# Based on code from https://simpleisbetterthancomplex.com/
 class RescueSignUpForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("username", "rescue_official_name", "county", "password1", "password2")
+        fields = ("username", "rescue_official_name", "county", "password1",
+                  "password2")
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -34,23 +41,27 @@ class RescueSignUpForm(UserCreationForm):
         return user
 
 
+# Form for pound to create profile of dog
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('dog_breed', 'gender', 'approx_age', 'neutered', 'microchipped', 'circumstance', 'pound_entry_date', 'hold_date', 'status','urgency',)
+        fields = ('dog_breed', 'gender', 'approx_age', 'neutered',
+                  'microchipped', 'circumstance', 'pound_entry_date',
+                  'hold_date', 'status', 'urgency',)
         widgets = {
             'pound_entry_date': DatePickerInput(),
             'hold_date': DatePickerInput(),
         }
 
         """
-        From keelback-code - out-proud
+        Based on code from keelback-code - out-proud
         """
         def form_valid(self, form):
             form.instance.created_by = self.request.user
             return super().form_valid(form)
 
 
+# Form for rescue to create booking against a profile
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking

@@ -6,8 +6,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.views.generic import (View, CreateView, UpdateView, DeleteView,
                                   TemplateView, ListView)
-# from django.urls import reverse, reverse_lazy  # Can probably delete
-# from itertools import chain  # Can probably delete
 
 from .models import User, Profile, Booking
 from .forms import PoundSignUpForm, RescueSignUpForm, ProfileForm, BookingForm
@@ -24,6 +22,7 @@ class RegisterView(TemplateView):
 
 
 # View to display sign up form for pound user
+# Based on code from simpleisbetterthancomplex.com
 class PoundSignUpView(CreateView):
     model = User
     form_class = PoundSignUpForm
@@ -40,6 +39,7 @@ class PoundSignUpView(CreateView):
 
 
 # View to display sign up form for rescue user
+# Based on code from simpleisbetterthancomplex.com
 class RescueSignUpView(CreateView):
     model = User
     form_class = RescueSignUpForm
@@ -53,14 +53,6 @@ class RescueSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('profiles')
-
-
-def rescue_check(user):
-    return user.is_rescue
-
-
-def pound_check(user):
-    return user.is_pound
 
 
 # View to display all dogs listed that have a status of on hold or available
