@@ -45,4 +45,6 @@ urlpatterns = [
          name='my_rescued_dogs'),
     path('my_dashboard/rescue_proposed_bookings/edit_booking/<int:id>',
          views.EditBooking.as_view(), name='edit_booking'),
+    path('rescue_delete_booking/<int:id>', views.RescueDeleteBooking.as_view(),
+         name='rescue_delete_booking'),
 ]
