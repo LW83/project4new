@@ -6,7 +6,7 @@ Welcome to Connector, a tool for connecting Pounds and Rescues to ensure dogs in
 
 This is a purely fictional sysetm created for purely for demonstrating Python & Django skills learned as part of the Code Institute's Diploma in Full Stack Software Development. 
 
-![Responsiveness Demo](./docs/)
+![Responsiveness Demo](./static/images/readme/mockup.png)
 
 ## Live Site
 
@@ -235,6 +235,7 @@ __Pound Views__
 
   - See All Dogs: For See All Dogs, a Pound user can view the detailed information uploaded for each dog that is looking for placement. This will include dogs from their Pound and others with a status of Hold or Available.
   - These dog profiles are sorted based on urgency with the view to tryin to get placement for the most in need dogs as a priority.
+  - Pagination has been added to this view to add pages where the tables exceeds 25 entries. 
 
 ![All Dogs Pound](./static/images/readme/all_dogs_pound.png)
 
@@ -290,6 +291,7 @@ __Pound Views__
 ![Pound Collection Confirmation](./static/images/readme/pound_collection_confirmed.png)
 
 - My Previous Dogs: From My Previous Dogs, a Pound user can see all of their dogs that have a status of Reclaimed, Rehomed, PTS, Transferred to Rescue or Death Natural Causes. From this view, they can individually edit or delete any of these profiles if required.
+- Pagination has been added to this view to add pages where the tables exceeds 25 entries. 
 
 ![My Previous Dogs](./static/images/readme/previous_dogs.png)
 
@@ -297,6 +299,7 @@ __Rescue Views__
 
   - See All Dogs: For See All Dogs, a Rescue User can view the detailed information uploaded for each dog that is looking for placement. This will include dogs with a status of Hold or Available. For Rescue Users, they can also see a Rescue Me button whereby they can create a booking request against any dog profile.
   - These dog profiles are sorted based on urgency with the view to tryin to get placement for the most in need dogs as a priority.
+  - Pagination has been added to this view to add pages where the tables exceeds 25 entries. 
 
 ![All Dogs Rescue](./static/images/readme/all_dogs_rescue.png)
 
@@ -339,6 +342,7 @@ __Rescue Views__
 ![Rescue Collection Confirmation](./static/images/readme/rescue_collection_confirmation.png)
 
   - My Rescued Dogs: My Rescued Dogs shows the specific Rescue user all of the dogs with a status of Transferred to Rescue for that Rescue user.
+  - Pagination has been added to this view to add pages where the tables exceeds 25 entries. 
 
 ![Rescued Dogs](./static/images/readme/my_rescued_dogs.png)
 
@@ -389,7 +393,11 @@ __Rescue Views__
   - The site was developed and tested using Google's Chrome browser. 
   - The site has also been tested on Safari and functions as intended. 
 
-![Browser Testing](./docs/)
+![Browser Testing](./static/images/readme/browser.png)
+
+  - The site is designed (due to the heavy use of data and tables) for user on a laptop or desktop device and for this reason is sub-optimal on smaller screen sizes. 
+
+![Responsiveness](./static/images/readme/responsiveness.png)
  
 ### Code Validation Testing 
 
