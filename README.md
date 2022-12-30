@@ -42,12 +42,10 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Fixed Bugs**](#fixed-bugs)
     * [**Unfixed Bugs**](#unfixed-bugs)
   * [**Deployment**](#deployment)
-  * [**Languages & Libraries**](#languages-&-libraries)
+  * [**Languages, Technologies & Libraries**](#languages-technologies--libraries)
     * [**Languages Used**](#languages-used)
-    * [**Frameworks & Libraries Utilised**](#frameworks-&-libraries-utilised)
+    * [**Technologies Utilised**](#technologies-utilised)
   * [**Credits**](#credits)
-    * [**Media & Content**](#media-&-content)
-    * [**Tools and Online Resources Utilised**](#tools-and-online-resources-utilised)
     * [**Code Utilisation**](#code-utilisation)
     * [**People**](#people)
 
@@ -147,7 +145,7 @@ __Log In__
   - Upon selecting Login, the user is taken to the log in screen to enter their information. 
   - From this view, the user also has a Register or Login button in the top right corner of their screen as part of the header. This is in case the user easily wishes to navigate to Register instead of Login.
 
-! [LogIn](./static/images/readme/login.png)
+![LogIn](./static/images/readme/login.png)
 
   - If the details entered are incorrect, they will receive an error notification.
 
@@ -408,60 +406,84 @@ __Python Validation__
 
   ![Accessibility](./static/images/readme/accessibility.png)
 
-
 ### Fixed Bugs   
   - The following key bugs arose and were fixed during the development of the site: 
 
-    1. XYZ: 
-          - Issue: 
+    1. Login Template not being identified: 
+          - Issue: When the login functionality was created, the site was not routing to the login.html template. 
+          - Solution: Django was looking for a template in a registrations folder. This was created and the routing to the template resolved.
+          - Resource:  [StackOverFlow](https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr)
 
-          - Solution: 
-          - Resource:  
+    2. Posting Bookings to Display in Admin View:
+          - Issue: When the Rescue user created a booking, this appeared to be created successfully but was not displaying in the admin view. Original code: 
+                def post(self, request, id):
+                    profile_to_book = get_object_or_404(Profile, id=id)
+                    booking_form = BookingForm(request.POST, request.FILES, instance=profile_to_book)
+                    if booking_form.is_valid():
+                        create_booking = booking_form.save(commit=False)
+                        create_booking.rescue = request.user
+                        profile_to_book.status = 8
+                        create_booking.save()
+                        messages.success(request, 'Booking requested successfully.')
+                        return redirect('profiles')
+                    else:
+                        messages.error(request, 'Booking not saved, please try again.')
+                        booking_form = BookingForm()
 
-    https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory - Correct to allow migration of User
+                    return render(
+                        request,
+                        "create_booking.html",
+                        {
+                            "booking_form": booking_form,
+                        }
+                    )
+          - Solution: The instance needed to be removed from the booking_form line and added to a create_booking.profile line before create_booking.save().
+            ![Solution](./static/images/readme/tutor_support.png)
+      
+          - Resource: This was resolved with help from Ger in Tutor Support as I had been unable to resolve through Slack or Stack OverFlow research.
+    
+    3. Admin User Functionality:
+          - Issue: Admin superuser view was set up and functioning but if an object was edited or deleted an Integrity Error was displayed and the change could not be saved. 
+          - Solution: All migrations had to be deleted and the SQL database reset to then remigrate all models and reenter data. 
+          - Resource: Research on [StackOverFlow](https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint) but ultimately Tutor Support to ensure I did not press self-destruct on my project!
 
-Bug - wasn't picking up login template - needed to put in registration folder https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr
+    4. Adding Calendar to Date Picker:
+          - Issue: Added DatePickerPlus to improve the UI for selecting dates as part of the Profile and Booking forms but was not displaying. 
+          - Solution: After adding the {{ form.media }} tag in the template, this was still not working so after further research I realised I need to specify the form name and add jQuery to my files to display the calendar correctly. 
+          - Resource: [DatePickerPlus](https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html) guidance plus [StackOverFlow](https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template) research
 
-Getting object by id: https://stackoverflow.com/questions/73338018/how-to-get-an-object-by-id-in-django
+    5. Abstract User: 
+          - Issue: I had started my initial build and created models for the Profile and Bookings and then worked on creating updates to the User Model. I was having significant issues migrating the changes.  
+          - Solution: After some research I discovered that customising the User model mid-build is very challenging to do, so I restarted my project from scratch beginning with the User model and then recreating the other models in the new repo. I was still then having issues with migrating my User so I then had Tutor Support to implement the second solution (see second StackOverFlow link)
+          - Resource:  [StackOverFlow](https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr)
+          [StackOverFlow](https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory)
 
-Int Pk URL structure: https://github.com/fabricius1/DjangoFilmsCRUD/blob/master/films/urls.py
-Adding extra fields in registration form: https://stackoverflow.com/questions/45708119/how-to-add-extra-fields-to-django-registration-form
+    6. Iteration to display profiles and related booking data in table: 
+          - Issue: Items from object list were not displaying in table in HTML template. Then profile information was displaying but not related booking information. 
+          - Solution: Typo in for loop; profile instead of Profile corrected the display of profile information and creating nested for loop with dog_booking.x instead of Profile.dog_booking.x to display related Booking data. 
+          - Resource: Assistance from Slack community to identify typo in profiles. Support from Oisin in Tutor Support to correct structure of nested loop to display related booking data correctly. 
 
-Creating filter for user and certain dog profiles: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
+    7. Display info specific to rescue user:
+          - Issue: Information was displaying in the views for the user but was not specific the logged in user and I needed to be able to extract a subset of profile information (based on status) and the related booking information for that profile based on the user logged in. 
+          - Solution: After multiple attempts to resolve, including trying to user a serializer to combine both the profile and booking information and then extract the relevant information, I finally utilised the select_related functionality to get the booking information for a user and extend it to include the related profile information which could then be displayed in the relevant template. 
+          - Resource: General research including [StackOverflow](https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django) and Django documentation on select_related and making queries.
 
-For dates in create profile form TRY: date_added = forms.DateField(initial=today, widget=forms.SelectDateWidget(years=YEARS))
-Add calendar to select dates: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html
+    8. Pound Deleting Bookings: 
+          - Issue: From the tables, the user has the ability to delete bookings however this functionality was throwing an error. I wanted the ability to delete a specific booking and for that profile update the status to Available. 
+          - Solution: I identified that the code was trying to select the id for the profile and not the specific booking 
+          identifying the booking id not the profile id but changing the code to get the profile object and then get the related booking object through booking_to_delete = profile_to_update.dog_booking.all() I was able to delete the specific booking entry and update the status of the profile based on the deleted booking.
+          - Resource: Self-resolved through general research on StackOverFlow and trial and error.
 
-Delete button: https://stackoverflow.com/questions/60616526/how-to-add-delete-button-in-each-row-of-my-table
-Delete button: https://stackoverflow.com/questions/55705666/django-tables2-with-edit-and-delete-buttons-how-to-do-it-properly
-
-Linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
-
-Add deletion confirm to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
-
-Filtering multiple criteria: https://stackoverflow.com/questions/769843/how-do-i-use-and-in-a-django-filter
-
-Displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
-
-Phone numbers: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field
-https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
-Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
-
-Amending Admin to bring in additional fields: https://stackoverflow.com/questions/48011275/custom-user-model-fields-abstractuser-not-showing-in-django-admin
-
-Admin issue: https://stackoverflow.com/questions/70274885/insert-or-update-on-table-django-admin-log-violates-foreign-key-constraint
-
-To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
-
-To fix form.media issue to display calendars in create profile and create booking forms: https://stackoverflow.com/questions/21381096/form-media-not-being-injected-into-a-template
-
-Creating view for rescues: if and statement for status of profile and rescue user from Booking model: https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django
-
-
+    9. Rescue Deleting/Editing/Confirming Status: 
+          - Issue: The deleting/editing/confirming collection functions were not working for Rescue users as I could not get the function to confirm the rescue as the logged in user. This was working fine for Pounds by drilling into the Profile.pound attribute and confirming against a logged in Pound user. 
+          - Solution: I flipped the logic of the view to get the Booking information first and use the rescue attribute of that object to compare to the logged in user. I then used select_related again to the get the related profile information for that booking so that the status of the profile could still be updated. 
+          - Resource: Self-resolved (eventually!) through general research on StackOverFlow and trial and error.
+      
 ### Unfixed Bugs
 - The are no existing bugs that remain unfixed in the site however there are feature enhancements as noted above that I would like to incorporate into the functionality of the site but was time constrained in completing these items prior to submission.   
 
 ***
+
 ## Deployment
 
 - Prior to deployment in Heroku, to ensure the dependencies used in Gitpod were installed in Heroku, I ran the pip3 freeze > requirements.txt command in Gitpod. 
@@ -489,7 +511,8 @@ Creating view for rescues: if and statement for status of profile and rescue use
 The live link can be found here: [Connector](https://project4new.herokuapp.com/) 
 
 ***
-## Languages & Libraries
+
+## Languages, Technologies & Libraries
 
 ### Languages Used
   - Python
@@ -497,20 +520,8 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
   - CSS3
   - Javascript
 
-### Frameworks & Libraries Utilised
-  - 
- -   - Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case 
-
-
-***
-## Credits  
-
-### Media & Content
- - 
-
-### Tools & Online Resources Utilised
- - The following tools and resources have been utilised in the creation of this project: 
-     - Code Institute & I Think Therefore I Blog Demonstration: For guidance and inspiration for this site. 
+### Technologies Utilised
+  - The following tools and resources have been utilised in the creation of this project: 
      - GitHub & Gitpod: For development of the site. 
      - [Stackoverflow](): For general guidance and research - specific examples used in final build set out below. 
      - [Slack](https://slack.com/intl/en-ie/): For general guidance and research on project considerations. 
@@ -519,16 +530,39 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [Pep8CI Validator](https://pep8ci.herokuapp.com/#)
      - [Heroku](https://id.heroku.com/login)
      - [Lucidchart](https://www.lucidchart.com): To create a flow chart of the game logic
-     - [Google](www.google.com): For spreadsheet and API to connect to Python
+     - Elephant SQL
+     - Bootstrap DatePickerPlus
+      
 
      Specific Online Resources utilised as references: 
-      - https://stackoverflow.com/questions/23623288/print-full-ascii-art - to insert ASCII images into Python
-      - https://www.codespeedy.com/check-if-user-input-is-a-string-or-number-in-python/ - to check name input for digits instead of letters
-      - https://pypi.org/project/colorama/ - to add color to the ASCII images
+     - Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case 
+
+
+***
+## Credits   
+
+### Resources
+ - The following resources were key to helping me build functionality critical to the working of the site: 
+   - For getting object by id: https://stackoverflow.com/questions/73338018/how-to-get-an-object-by-id-in-django
+   - For Int Pk URL structure: https://github.com/fabricius1/DjangoFilmsCRUD/blob/master/films/urls.py
+   - For adding delete button to table rows: https://stackoverflow.com/questions/60616526/how-to-add-delete-button-in-each-row-of-my-table
+   - Delete buttons: https://stackoverflow.com/questions/55705666/django-tables2-with-edit-and-delete-buttons-how-to-do-it-properly
+   - For adding extra fields in registration form: https://stackoverflow.com/questions/45708119/how-to-add-extra-fields-to-django-registration-form
+   - For creating an AND Django filter: https://stackoverflow.com/questions/769843/how-to-use-and-in-a-django-filter
+   - For adding calendars to dates in forms through DatePicker Plus: https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/Walkthrough.html
+   - Amending Admin view to bring in additional fields: https://stackoverflow.com/questions/48011275/custom-user-model-fields-abstractuser-not-showing-in-django-admin
+   - For linking the edit button to the icon: https://docs.djangoproject.com/en/4.1/intro/tutorial04/
+   - To add deletion confirmation to deletion actions: https://stackoverflow.com/questions/64070378/how-can-i-use-django-deleteview-in-my-template
+   - For displaying messages: https://docs.djangoproject.com/en/4.1/ref/contrib/messages/#:~:text=The%20messages%20framework%20allows%20you,%2C%20warning%20%2C%20or%20error%20).
+   - To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
+   - To store phone number field in form: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
+   - Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
+
+
 
 ### Code Utilisation
  - The following elements of code have specifically been inspired from the following sources: 
-    - Code Institute for the deployment terminal 
+    - Code Institute, Hello Django & I Think Therefore I Blog Demonstrations: For guidance and inspiration for this site. 
     - [ABC](https://github.com/) for the folllowing: 
     - Adding if empty: https://stackoverflow.com/questions/56604833/django-if-table-in-template-is-empty-display-something-else
     - Pagination: Code Institute - I think therefore I blog
