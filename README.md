@@ -132,7 +132,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 Homepage: 
 
-- From the start of planning, I intended the homepage to be a gateway to connector with a clean simple view. This has been carried through to the final design with the main changes being the addition of the header and footer styling for the page. 
+- From the start of planning, I intended the homepage to be a gateway to Connector with a clean simple view. This has been carried through to the final design with the main changes being the addition of the header and footer styling for the page. 
 
 ![Homepage View](./static/images/readme/homepage_view.png)
 
