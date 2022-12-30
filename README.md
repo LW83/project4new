@@ -487,25 +487,74 @@ __Python Validation__
 
 ## Deployment
 
-- Prior to deployment in Heroku, to ensure the dependencies used in Gitpod were installed in Heroku, I ran the pip3 freeze > requirements.txt command in Gitpod. 
+### Workspace SetUp
 
-- As a python based project, the site was deployed to Heroku following the below deployment steps: 
+Steps to Set up Workspace and Install Django:
+
+ - In your repository install Django and gunicorn with the following command: pip install 'django<4' gunicorn
+ - Install supporting libraries:
+          pip install dj_database_url psycopg2
+          pip install dj3-cloudinary-storage
+- Create a requirements.txt file:
+          pip freeze --local > requirements.txt
+- Create a project via the following command:
+          django-admin startproject PROJECT_NAME . (in the case of this project, the project name was "project4")
+- Create an app within the project:
+          python manage.py startapp APP_NAME (in the case of this project, the app name was "connector")
+- Add your new app to the list of installed apps in setting.py
+- Migrate these changes via:
+          python manage.py migrate
+- Test the server works locally:
+          python manage.py runserver (Should display Django success page) 
+
+### Deployment
+
+- Prior to deployment in Heroku a database was set up with ElephantSQL, the site was then deployed to Heroku following the below deployment steps: 
+  
+  Heroku:
    - Log in to Heroku (or create an account if required).
    - Click 'Create a new app'.
-   - Enter a name for the app (must be unique). I selected sorting-hat-22. 
+   - Enter a name for the app (must be unique). I selected project4new. 
    - Select your region. For me, this is Europe being based in Ireland. 
    - Select "Create app".
    - In the new page for the app, select the Settings tab from the menu at the top of the main screen. 
-   - In the Settings page, go to the 'Config Vars' section and select "Reveal Config Vars".
-   - In the 'Key' field enter a name of 'CREDS' and copy and paste the contents of the creds.json file from Gipod into the 'Value' field in order to connect Heroku to the API with Google sheets. 
-   - Select 'Add'; in this line enter 'PORT' in the 'Key' field and a 'Value' of 8000 to ensure compatability between teh Code Institute template being used and vaious Python libraries. 
-   - Then scroll to the 'Buildpacks' section of teh Settings page and select 'Add Buildpack'.
-   - Select 'Python' and save the changes. 
-   - Then add 'node.js' as a further buildpack. 
-   - Ensure Python is above Node.js in the buildpack order or if not, reorder.
-   - Now select the 'Deplpy' section from the menu at the top of the page. 
+   - In the Heroku Settings page, go to the 'Config Vars' section and select "Reveal Config Vars".
+   - Select 'Add' in the Settings tab of Heroku; in this line enter 'PORT' in the 'Key' field and a 'Value' of 8000. 
+   - In these Settings all relevant secret keys and database URLs are also added. 
+   
+  Gitpod:
+
+    Env.py file
+    - These database and secret key URLs are also added to your env.py file in gitHub and this file is included in the gitignore file to ensure config vars are not publically available on Github.
+    - In env.py import os
+    - Add os.environ["DATABASE_URL"] = "Paste in ElephantSQL database URL"
+    - os.environ["SECRET_KEY"] = "Paste in your randomSecretKey"
+
+    Settings.py file
+    - Under from pathlib import Path add:
+        import os
+        import dj_database_url
+        if os.path.isfile("env.py"):
+          import env
+    - Replace the secret key: SECRET_KEY = os.environ.get('SECRET_KEY')
+    - Update the Databases value to: 
+          DATABASES = {
+            'default': 
+          dj_database_url.parse(os.environ.get("DATABASE_URL"))
+          }
+    - Migrate these changes
+    - Link file to the templates directory in Heroku (Place under the BASE_DIR line) via: 
+          TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+    - Change the templates directory to TEMPLATES_DIR. Place within the TEMPLATES array
+    - Add Heroku Hostname to ALLOWED_HOSTS; 
+          ALLOWED_HOSTS = ["PROJ_NAME.herokuapp.com", "localhost"]
+    - Create a procfile at the top level directory and add: web: gunicorn PROJ_NAME.wsgi
+    - Add, commit and push the changes in the terminal
+
+  Heroku:
+   - In Heroku, select the 'Deploy' section from the menu at the top of the page. 
    - Select GitHub as the deployment method and 'Connect to GitHub'.
-   - Find the right repository (here sorting_hat) via the Search functionality and then select 'Connect'.
+   - Find the right repository (here project4new) via the Search functionality and then select 'Connect'.
    - Scroll down to the new 'Manual Deploy' section and select 'Deploy Branch'
    - Wait until the deployment is finished running and select "View".
 
@@ -523,7 +572,7 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
 
 ### Technologies Utilised
   - The following tools and resources have been utilised in the creation of this project: 
-     - GitHub & Gitpod: For development of the site. 
+     - [GitHub](https://github.com/) & [Gitpod](https://gitpod.io/): For development of the site. 
      - [Stackoverflow](): For general guidance and research - specific examples used in final build set out below. 
      - [Slack](https://slack.com/intl/en-ie/): For general guidance and research on project considerations. 
      - [W3C HTML Validator](https://validator.w3.org/)
@@ -535,9 +584,11 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [Django](https://www.djangoproject.com/): For site build framework
      - [Boostrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/): For site styling
      - [Bootstrap DatePickerPlus](https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/index.html): To add calendar widget to forms for better UI
-     - [Cloudinary](https://cloudinary.com): Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case this would be a useful future feature. 
+     - [Cloudinary](https://cloudinary.com): Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images in the app itself.
      - [Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/): For use in profile, booking creation and edit forms.
      - [Django Phonenumber Field](https://django-phonenumber-field.readthedocs.io/en/latest/)
+     - [Font Awesome](https://fontawesome.com/): For paw icon
+     - [Google Fonts](https://fonts.google.com/): For site fonts
 
 ***
 ## Credits   
