@@ -46,6 +46,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Languages Used**](#languages-used)
     * [**Technologies Utilised**](#technologies-utilised)
   * [**Credits**](#credits)
+    * [**Resources**](#resources)
     * [**Code Utilisation**](#code-utilisation)
     * [**People**](#people)
 
@@ -477,7 +478,7 @@ __Python Validation__
     9. Rescue Deleting/Editing/Confirming Status: 
           - Issue: The deleting/editing/confirming collection functions were not working for Rescue users as I could not get the function to confirm the rescue as the logged in user. This was working fine for Pounds by drilling into the Profile.pound attribute and confirming against a logged in Pound user. 
           - Solution: I flipped the logic of the view to get the Booking information first and use the rescue attribute of that object to compare to the logged in user. I then used select_related again to the get the related profile information for that booking so that the status of the profile could still be updated. 
-          - Resource: Self-resolved (eventually!) through general research on StackOverFlow and trial and error.
+          - Resource: Self-resolved (eventually!) through general research on [StackOverFlow](https://stackoverflow.com/questions/41252033/django-filter-using-select-related) and trial and error.
       
 ### Unfixed Bugs
 - The are no existing bugs that remain unfixed in the site however there are feature enhancements as noted above that I would like to incorporate into the functionality of the site but was time constrained in completing these items prior to submission.   
@@ -530,13 +531,13 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [Pep8CI Validator](https://pep8ci.herokuapp.com/#)
      - [Heroku](https://id.heroku.com/login)
      - [Lucidchart](https://www.lucidchart.com): To create a flow chart of the game logic
-     - Elephant SQL
-     - Bootstrap DatePickerPlus
-      
-
-     Specific Online Resources utilised as references: 
-     - Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case 
-
+     - [Elephant SQL](https://www.elephantsql.com/): For the database
+     - [Django](https://www.djangoproject.com/): For site build framework
+     - [Boostrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/): For site styling
+     - [Bootstrap DatePickerPlus](https://django-bootstrap-datepicker-plus.readthedocs.io/en/latest/index.html): To add calendar widget to forms for better UI
+     - [Cloudinary](https://cloudinary.com): Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case this would be a useful future feature. 
+     - [Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/): For use in profile, booking creation and edit forms.
+     - [Django Phonenumber Field](https://django-phonenumber-field.readthedocs.io/en/latest/)
 
 ***
 ## Credits   
@@ -557,21 +558,19 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
    - To create accept and reject booking functions: https://www.w3schools.com/django/django_update_record.php
    - To store phone number field in form: https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#model-field https://stackoverflow.com/questions/19130942/whats-the-best-way-to-store-a-phone-number-in-django-models
    - Default Phone Number structure: https://www.twilio.com/docs/glossary/what-e164
-
-
+   - For adding if empty to the table views: https://stackoverflow.com/questions/56604833/django-if-table-in-template-is-empty-display-something-else
+   - Bootstrap documentation
+   - Django documentation
 
 ### Code Utilisation
  - The following elements of code have specifically been inspired from the following sources: 
-    - Code Institute, Hello Django & I Think Therefore I Blog Demonstrations: For guidance and inspiration for this site. 
-    - [ABC](https://github.com/) for the folllowing: 
-    - Adding if empty: https://stackoverflow.com/questions/56604833/django-if-table-in-template-is-empty-display-something-else
-    - Pagination: Code Institute - I think therefore I blog
-    - User types & permission decorators: https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html
-    - Filtering rescue view: https://stackoverflow.com/questions/41252033/django-filter-using-select-related
+    - Code Institute, Hello Django & I Think Therefore I Blog Demonstrations: For guidance and inspiration for this site, including guidance on deployment, messages, querysets, admin functionality, model creation and structure, url structure, form creation, pagination.  
+    - As noted in the code, I also took inspiration from Elyse Horan (keelback-code) and her [Out and Proud](https://github.com/keelback-code/out-proud/blob/main/README.md) project particularly in relation to the code for Creating and Editing Profiles.
+    - For guidance on user types & permission decorators: https://simpleisbetterthancomplex.com/tutorial/2018/01/18/how-to-implement-multiple-user-types-with-django.html. In the end I decided on a different permssion structure for the page than using decorators but still utilised a lot of the user registration sign up from this tutorial in creating the sign up templates and views. 
 
 ### People
  - In addition a big thank you to the following people for their assistance or inspiration in this project:
      - Kasia Bogucka: Our cohort facilitator for keeping us all on track and answering all and any of the many questions!
      - My cohort: For our weekly checkins and tips
-     - The Tutor Support team for their assistance in resolving some bugs and in particular, Ger in Tutor Support for helping me resolve an issue where the information from the booking model was submitting but not displaying in the booking model in Admin. 
+     - The Tutor Support team for their assistance in resolving some bugs and in particular, Ger in Tutor Support for helping me resolve an issue where the information from the booking model was submitting but not displaying in the booking model in Admin. There were definitely instances in this build where there support was greatly appreciated in overcoming a hurdle and being able to move forward.
 
