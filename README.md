@@ -42,6 +42,8 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Fixed Bugs**](#fixed-bugs)
     * [**Unfixed Bugs**](#unfixed-bugs)
   * [**Deployment**](#deployment)
+    * [**Workspace SetUp**](#workspace-setup)
+    * [**Deployment**](#deployment-1)
   * [**Languages, Technologies & Libraries**](#languages-technologies--libraries)
     * [**Languages Used**](#languages-used)
     * [**Technologies Utilised**](#technologies-utilised)
@@ -116,7 +118,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 - I used [Lucidchart](https://www.lucidchart.com) to set out the main logic of the site: 
 
-![Lucidchart Diagram](./docs/)
+![Lucidchart Diagram](./static/images/readme/lucidchart.png)
 
 ### Design
 
@@ -126,10 +128,37 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 ### Wireframes
 
+- High level wireframes for the site were mocked up in gSheets with a focus on the table views that the user types would require. 
+
+Homepage: 
+
+- From the start of planning, I intended the homepage to be a gateway to connector with a clean simple view. This has been carried through to the final design with the main changes being the addition of the header and footer styling for the page. 
+
+![Homepage View](./static/images/readme/homepage_view.png)
+
+All Users:
+
+- The plan was to have a table visible to all users that sets out all of the dogs available for rescue. From this initial mock-up there were some functionality goals that were not possible to implement in the timeframe and actually never made it to the user stories including formal notifications (outside of onscreen messages). Similarly I decided not to let Pound users amend the collection date at this time but potential enable in future functionality the ability to propose an alternative date. 
+
+![All User View](./static/images/readme/all_user_view.png)
+
+Pound Users: 
+
+- The final structure of the site for Pound users largely includes the same functionality as the original mock-up. The primary difference was the decision to split the various tables into their own pages for a cleaner UI and to then add a user dashboard to simplify navigation between these views. I also decided not to implement the comment field in the table again to keep the view clean however this may be something worth revisiting in the future. 
+
+![Pound View](./static/images/readme/pound_view.png)
+
+Rescue Users:
+
+- Similarly, the final structure of the site for Rescue users largely includes the same functionality as the original mock-up again with the primary difference being the decision to split the various tables into their own pages for a cleaner UI and to then add a user dashboard to simplify navigation between these views.
+
+![Rescue View](./static/images/readme/rescue_view.png)
 
 ### Database Planning
 
+- The final model structure implemented for the site is as follows: 
 
+![Final Models](./static/images/readme/final_model_structure.png)
 
 ***
 ## Existing Features 
@@ -578,8 +607,8 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [W3C HTML Validator](https://validator.w3.org/)
      - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
      - [Pep8CI Validator](https://pep8ci.herokuapp.com/#)
-     - [Heroku](https://id.heroku.com/login)
-     - [Lucidchart](https://www.lucidchart.com): To create a flow chart of the game logic
+     - [Heroku](https://id.heroku.com/login): To deploy the site
+     - [Lucidchart](https://www.lucidchart.com): To create a flow chart of the site logic
      - [Elephant SQL](https://www.elephantsql.com/): For the database
      - [Django](https://www.djangoproject.com/): For site build framework
      - [Boostrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/): For site styling
