@@ -68,7 +68,8 @@ class BookingForm(forms.ModelForm):
         fields = ('collection_date', 'phone_number')
         help_texts = {
             'collection_date': ('Please enter in format YYYY-MM-DD'),
-            'phone_number': ('Please enter in the format CountryCodePhoneNumber e.g. +353871234567')
+            'phone_number': ('Please enter in the format'
+                             'CountryCodePhoneNumber e.g. +353871234567')
         }
         widgets = {
             'collection_date': DatePickerInput(),

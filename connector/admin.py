@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
 
     list_display = ['username', 'is_staff', 'is_pound',
                     'pound_official_name', 'is_rescue',
-                    'rescue_official_name', 'county',]
+                    'rescue_official_name', 'county', ]
 
 
 admin.site.register(User, CustomUserAdmin)
