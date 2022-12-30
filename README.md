@@ -138,7 +138,7 @@ Homepage:
 
 All Users:
 
-- The plan was to have a table visible to all users that sets out all of the dogs available for rescue. From this initial mock-up there were some functionality goals that were not possible to implement in the timeframe and actually never made it to the user stories including formal notifications (outside of onscreen messages). Similarly I decided not to let Pound users amend the collection date at this time but potential enable in future functionality the ability to propose an alternative date. 
+- The plan was to have a table visible to all users that sets out all of the dogs available for rescue. From this initial mock-up there were some functionality goals that were not possible to implement in the timeframe and actually never made it to the user stories including formal notifications (outside of onscreen messages). Similarly I decided not to let Pound users amend the collection date at this time but potentially may enable in future functionality the ability to propose an alternative date. 
 
 ![All User View](./static/images/readme/all_user_view.png)
 
@@ -167,7 +167,7 @@ Rescue Users:
 
 ![Landing Page Screenshot](./static/images/readme/homepage.png)
 
- - On arrival at the page, their is a header with the site brand name (Connector) and slogan ('Giving Pound Dogs their Second Chance').
+ - On arrival at the page, there is a header with the site brand name (Connector) and slogan ('Giving Pound Dogs their Second Chance').
 
 __Log In__
 
@@ -353,16 +353,16 @@ __Rescue Views__
 ***
 ## Feature Enhancements
 
- - There are a number of feature enhancements that I believe would be beneficial to the site and further enhancement its usefulness to the user but which I was time constrained to try and incorporate prior to the submission deadline for this project. These include: 
+ - There are a number of feature enhancements that I believe would be beneficial to the site and further enhance its usefulness to the user but which I was time constrained to try and incorporate prior to the submission deadline for this project. These include: 
 
-     - Optimising the site display for viewing on mobile devices. Currently due to the tables and level of detail required this is not optimal for mobile and the site really needs to be used on a laptop or desktop device. It would have possible to exclude information from the tables to more easily suit a mobile view but this would have been compromising functionality just for visual purposes which I think would have undermined the usefulness of the site.
+     - Optimising the site display for viewing on mobile devices. Currently due to the tables and level of detail required this is not optimal for mobile and the site really needs to be used on a laptop or desktop device. It would have been possible to exclude information from the tables to more easily suit a mobile view but this would have been compromising functionality just for visual purposes which I think would have undermined the usefulness of the site.
      - Adding conditional formatting to the Current Dogs Available for Placement dashboard to color code the urgency cell of the table and to easily enable a Rescue user to identify profiles of dogs most in need of placement. 
      - Adding filters to the dashboards to better allow the User to narrow the information down for their specific need e.g. Rescue users to be able to filter based on location of pounds in their county.
-     - Adding a notification functionality so that users receive a notification for updates to profiles that they are a a booking party of e.g. if a Rescue user updates a booking that a notification is sent to the Pound to explicitly state this change and notify them of the need to accept or reject the update
+     - Adding a notification functionality so that users receive a notification for updates to profiles that they are a booking party of e.g. if a Rescue user updates a booking that a notification is sent to the Pound to explicitly state this change and notify them of the need to accept or reject the update.
      - Removing status options of Booked/Booking Proposed from the create a dog profile form so that this status can only be rendered by using the booking functionality of the site.
      - Enabling a propose alternative date functionality for the proposed bookings whereby instead of a straight accept or reject booking, a Pound user could propose an alternative collection date if required. 
      - Enabling a password reminder/reset functionality within the site and the ability for the user to manage their own details. 
-     - Enabling dynamic additional fields for the Pound user based on the final status of the dog e.g. if a dog was reclaimed, details of the date and individual reclaiming. 
+     - Enabling dynamic additional fields for the Pound user based on the final status of the dog e.g. if a dog was reclaimed, the Pound user can enter details of the date and individual reclaiming. 
      - Ability for the user to export data to excel or Google sheets.
      - Enhance form population controls for date population e.g. error warning if collection date is prior to current hold date, or collection date is prior to current date.
        
@@ -395,7 +395,7 @@ __Rescue Views__
 
 ![Browser Testing](./static/images/readme/browser.png)
 
-  - The site is designed (due to the heavy use of data and tables) for user on a laptop or desktop device and for this reason is sub-optimal on smaller screen sizes. 
+  - The site is designed (due to the heavy use of data and tables) for use on a laptop or desktop device and for this reason is sub-optimal on smaller screen sizes. 
 
 ![Responsiveness](./static/images/readme/responsiveness.png)
  
@@ -447,13 +447,14 @@ __Python Validation__
 ### Fixed Bugs   
   - The following key bugs arose and were fixed during the development of the site: 
 
-    1. Login Template not being identified: 
+    1. Login template not being identified: 
           - Issue: When the login functionality was created, the site was not routing to the login.html template. 
           - Solution: Django was looking for a template in a registrations folder. This was created and the routing to the template resolved.
           - Resource:  [StackOverFlow](https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr)
 
     2. Posting Bookings to Display in Admin View:
           - Issue: When the Rescue user created a booking, this appeared to be created successfully but was not displaying in the admin view. Original code: 
+                
                 def post(self, request, id):
                     profile_to_book = get_object_or_404(Profile, id=id)
                     booking_form = BookingForm(request.POST, request.FILES, instance=profile_to_book)
@@ -492,7 +493,7 @@ __Python Validation__
 
     5. Abstract User: 
           - Issue: I had started my initial build and created models for the Profile and Bookings and then worked on creating updates to the User Model. I was having significant issues migrating the changes.  
-          - Solution: After some research I discovered that customising the User model mid-build is very challenging to do, so I restarted my project from scratch beginning with the User model and then recreating the other models in the new repo. I was still then having issues with migrating my User so I then had Tutor Support to implement the second solution (see second StackOverFlow link)
+          - Solution: After some research I discovered that customising the User model mid-build is very challenging to do, so I restarted my project from scratch beginning with the User model and then recreating the other models in the new repo. I was still then having issues with migrating my User so I then had Tutor support to implement the second solution (see second StackOverFlow link)
           - Resource:  [StackOverFlow](https://stackoverflow.com/questions/6646400/does-django-ship-with-the-authentication-templates-for-use-with-the-django-contr)
           [StackOverFlow](https://stackoverflow.com/questions/44651760/django-db-migrations-exceptions-inconsistentmigrationhistory)
 
@@ -501,15 +502,14 @@ __Python Validation__
           - Solution: Typo in for loop; profile instead of Profile corrected the display of profile information and creating nested for loop with dog_booking.x instead of Profile.dog_booking.x to display related Booking data. 
           - Resource: Assistance from Slack community to identify typo in profiles. Support from Oisin in Tutor Support to correct structure of nested loop to display related booking data correctly. 
 
-    7. Display info specific to rescue user:
+    7. Display info specific to Rescue user:
           - Issue: Information was displaying in the views for the user but was not specific the logged in user and I needed to be able to extract a subset of profile information (based on status) and the related booking information for that profile based on the user logged in. 
           - Solution: After multiple attempts to resolve, including trying to user a serializer to combine both the profile and booking information and then extract the relevant information, I finally utilised the select_related functionality to get the booking information for a user and extend it to include the related profile information which could then be displayed in the relevant template. 
           - Resource: General research including [StackOverflow](https://stackoverflow.com/questions/72765208/how-to-combine-multiple-models-into-one-view-template-in-django) and Django documentation on select_related and making queries.
 
-    8. Pound Deleting Bookings: 
+    8. Pound deleting bookings: 
           - Issue: From the tables, the user has the ability to delete bookings however this functionality was throwing an error. I wanted the ability to delete a specific booking and for that profile update the status to Available. 
-          - Solution: I identified that the code was trying to select the id for the profile and not the specific booking 
-          identifying the booking id not the profile id but changing the code to get the profile object and then get the related booking object through booking_to_delete = profile_to_update.dog_booking.all() I was able to delete the specific booking entry and update the status of the profile based on the deleted booking.
+          - Solution: I identified that the code was trying to select the id for the profile and not the specific booking. I changed the code to get the profile object and then get the related booking object through booking_to_delete = profile_to_update.dog_booking.all() I was able to delete the specific booking entry and update the status of the profile based on the deleted booking.
           - Resource: Self-resolved through general research on StackOverFlow and trial and error.
 
     9. Rescue Deleting/Editing/Confirming Status: 
@@ -624,7 +624,7 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [Cloudinary](https://cloudinary.com): Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images in the app itself.
      - [Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/): For use in profile, booking creation and edit forms.
      - [Django Phonenumber Field](https://django-phonenumber-field.readthedocs.io/en/latest/)
-     - [Font Awesome](https://fontawesome.com/): For paw icon
+     - [Font Awesome](https://fontawesome.com/): For icon used on site
      - [Google Fonts](https://fonts.google.com/): For site fonts
 
 ***
