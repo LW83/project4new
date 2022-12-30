@@ -37,6 +37,8 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Permissions Testing**](#permissions-testing)
     * [**Browser Testing**](#browser-testing)
     * [**Code Validation Testing**](#code-validation-testing)
+    * [**Lighthouse Performance Testing**](#lighthouse-performance-testing)
+    * [**Accessibility Testing**](#accessibility-testing)
     * [**Fixed Bugs**](#fixed-bugs)
     * [**Unfixed Bugs**](#unfixed-bugs)
   * [**Deployment**](#deployment)
@@ -365,30 +367,47 @@ __Rescue Views__
 
   - The site code has been passed through the following online validation tools: 
 
-  ![Code Validations](./docs/)
+  ![Code Validations](./static/images/readme/validators.png)
 
 __HTML Validation__
   
-  - There are no errors for the site when passed through the W3C validator. 
+  - There are no errors for the site when passed through the W3C validator. The information warning regarding the trailing slash in the meta tag has been corrected.
 
-  ![W3C validator](./docs/)
+  ![W3C validator](./static/images/readme/html_validation.png)
 
 __CSS Validation__
 
-  - There are no errors for the site when passed through the W3C validator.
+  - There are no errors for the site when passed through the W3C validator. Warnings were found in relation to the links for Bootstrap and Font Awesome. These were left as is. 
 
-  ![CSS validator](./docs/)
+  ![CSS validator](./static/images/readme/css_validator.png)
 
 __Python Validation__
 
-  - No errors were found in any of the three python files when passing through the Pep8 online validator. 
-   
-  Run File
-  ![Run File](./docs/)
-  Questions File 
-  ![Questions File](./docs/)
-  Logo File
-  ![Logo File](./docs/)
+  - The only issues found in any of the python files when passing through the Pep8CI online validator related to line length and some of these were deliberately left as is mostly to avoid impacting the functionality of the code and in a few instances due to the code being easier to read when left as is. 
+
+### Lighthouse Performance Testing
+
+  - Lighthouse testing was performed on the site with perfomance and accessibility scores consistently in the 90%+ range.
+
+  ![Homepage Lighthouse](./static/images/readme/homepage_lighthouse.png)
+  ![Login Lighthouse](./static/images/readme/login_lighthouse.png)
+  ![Sign Up Options Lighthouse](./static/images/readme/signup_options_lighthouse.png)
+  ![Registration Lighthouse](./static/images/readme/registration_lighthouse.png)
+  ![Dashboard Lighthouse](./static/images/readme/dashboard_lighthouse.png)
+  ![Current Dogs Lighthouse](./static/images/readme/current_dogs_lighthouse.png)
+  ![Add a Profile Lighthouse](./static/images/readme/add_a_profile_lighthouse.png)
+  ![Edit a Profile Lighthouse](./static/images/readme/edit_a_profile_lighthouse.png)
+  ![My Current Dogs Lighthouse](./static/images/readme/my_current_dogs_lighthouse.png)
+  ![My Bookings Lighthouse](./static/images/readme/my_bookings_lighthouse.png)
+  ![My Proposed Bookings Lighthouse](./static/images/readme/my_proposed_bookings_lighthouse.png)
+  ![My Previous Dogs Lighthouse](./static/images/readme/my_previous_dogs_lighthouse.png)
+
+### Accesibility Testing
+
+  - In addition to the lighthouse reports, site accessibility was also tested via [Accessibility Test](https://accessibilitytest.org/) with a score of 98%.
+
+  ![Accessibility](./static/images/readme/accessibility.png)
+
 
 ### Fixed Bugs   
   - The following key bugs arose and were fixed during the development of the site: 
@@ -497,7 +516,7 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
      - [Slack](https://slack.com/intl/en-ie/): For general guidance and research on project considerations. 
      - [W3C HTML Validator](https://validator.w3.org/)
      - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
-     - [Pep8online Validator](http://pep8online.com/)
+     - [Pep8CI Validator](https://pep8ci.herokuapp.com/#)
      - [Heroku](https://id.heroku.com/login)
      - [Lucidchart](https://www.lucidchart.com): To create a flow chart of the game logic
      - [Google](www.google.com): For spreadsheet and API to connect to Python
