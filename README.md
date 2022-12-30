@@ -29,11 +29,12 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
   * [**Existing Features**](#existing-features)
     * [**Landing Page**](#landing-page)
     * [**User Dashboards**](#user-dashboards)
-    * [****](#)
+    * [**Views**](#views)
   * [**Feature Enhancements**](#feature-enhancements)
   * [**Testing**](#testing)
     * [**User Story Testing**](#user-story-testing)
     * [**Features Testing**](#features-testing)
+    * [**Permissions Testing**](#permissions-testing)
     * [**Browser Testing**](#browser-testing)
     * [**Code Validation Testing**](#code-validation-testing)
     * [**Fixed Bugs**](#fixed-bugs)
@@ -41,7 +42,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
   * [**Deployment**](#deployment)
   * [**Languages & Libraries**](#languages-&-libraries)
     * [**Languages Used**](#languages-used)
-    * [**Python Libraries & Modules Utilised**](#python-libraries--modules-utilised)
+    * [**Frameworks & Libraries Utilised**](#frameworks-&-libraries-utilised)
   * [**Credits**](#credits)
     * [**Media & Content**](#media-&-content)
     * [**Tools and Online Resources Utilised**](#tools-and-online-resources-utilised)
@@ -318,17 +319,17 @@ __Rescue Views__
 ***
 ## Feature Enhancements
 
- - There are a number of feature enhancements that I believe would be beneficial to the site but which I was time constrained to try and incorporate prior to the submission deadline for this project. These include: 
+ - There are a number of feature enhancements that I believe would be beneficial to the site and further enhancement its usefulness to the user but which I was time constrained to try and incorporate prior to the submission deadline for this project. These include: 
 
      - Optimising the site display for viewing on mobile devices. Currently due to the tables and level of detail required this is not optimal for mobile and the site really needs to be used on a laptop or desktop device. It would have possible to exclude information from the tables to more easily suit a mobile view but this would have been compromising functionality just for visual purposes which I think would have undermined the usefulness of the site.
      - Adding conditional formatting to the Current Dogs Available for Placement dashboard to color code the urgency cell of the table and to easily enable a Rescue user to identify profiles of dogs most in need of placement. 
      - Adding filters to the dashboards to better allow the User to narrow the information down for their specific need e.g. Rescue users to be able to filter based on location of pounds in their county.
-     - Adding a notification functionality so that users receive a notification for updates to profiles that they are a a booking party of e.g. If a Rescue user updates a booking that a notification is sent to the Pound to explicit state this change. 
+     - Adding a notification functionality so that users receive a notification for updates to profiles that they are a a booking party of e.g. if a Rescue user updates a booking that a notification is sent to the Pound to explicitly state this change and notify them of the need to accept or reject the update
      - Removing status options of Booked/Booking Proposed from the create a dog profile form so that this status can only be rendered by using the booking functionality of the site.
      - Enabling a propose alternative date functionality for the proposed bookings whereby instead of a straight accept or reject booking, a Pound user could propose an alternative collection date if required. 
      - Enabling a password reminder/reset functionality within the site and the ability for the user to manage their own details. 
      - Enabling dynamic additional fields for the Pound user based on the final status of the dog e.g. if a dog was reclaimed, details of the date and individual reclaiming. 
-     - Ability for the User to export data to excel or Google sheets.
+     - Ability for the user to export data to excel or Google sheets.
      - Enhance form population controls for date population e.g. error warning if collection date is prior to current hold date, or collection date is prior to current date.
        
 ***
@@ -338,14 +339,21 @@ __Rescue Views__
 
  - All user stories identified have been tested against the final design with the outcome of this testing set out below. 
 
-![User Story Testing](./docs/)
+![User Story Testing](./static/images/readme/user_story_testing.png)
 
 ### Features Testing
+
  - All design features have been manually tested with the outcome of this testing set out below. 
  - Screenshots have also been included in the Features section above to show the validation output for the various steps completed by the user. 
  - Testing was completed in my local terminal and also in Heroku post deployment. 
 
-![Features Testing](./docs/)
+![Features Testing](./static/images/readme/functionality_feature_testing.png)
+
+### Permissions Testing
+
+ - All urls have been tested to ensure that only the correct user profiles can access the functionality available to them. The outcome of this testing is set out below. 
+
+![Permissions Testing](./static/images/readme/permissions_testing.png)
 
 ### Browser Testing
   - The site was developed and tested using Google's Chrome browser. 
@@ -432,7 +440,7 @@ Creating view for rescues: if and statement for status of profile and rescue use
 
 
 ### Unfixed Bugs
-- The are no existing bugs that remain unfixed in the site however there are feature enhancements that I would like to incorporate into the functionality of the site but was time constrained in completing these items prior to submission.   
+- The are no existing bugs that remain unfixed in the site however there are feature enhancements as noted above that I would like to incorporate into the functionality of the site but was time constrained in completing these items prior to submission.   
 
 ***
 ## Deployment
@@ -468,8 +476,9 @@ The live link can be found here: [Connector](https://project4new.herokuapp.com/)
   - Python
   - HTML5
   - CSS3
+  - Javascript
 
-### Python Libraries & Modules Utilised
+### Frameworks & Libraries Utilised
   - 
  -   - Cloudinary has been installed in the app but currently I did not feel that their would be a significant use case for uploading images of the dogs but I have retained Cloudinary in case 
 
