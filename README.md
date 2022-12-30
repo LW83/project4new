@@ -15,6 +15,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 ## Repository 
 
 [GitHub Repository](https://github.com/LW83/project4new)
+
 ***
 ## Table of Contents:
 * [**Connector**](#connector)
@@ -46,6 +47,7 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
     * [**Tools and Online Resources Utilised**](#tools-and-online-resources-utilised)
     * [**Code Utilisation**](#code-utilisation)
     * [**People**](#people)
+
 ***
 ## Concept and Planning 
 
@@ -124,6 +126,9 @@ This is a purely fictional sysetm created for purely for demonstrating Python & 
 
 
 ### Database Planning
+
+
+
 ***
 ## Existing Features 
 
@@ -197,20 +202,20 @@ __Logout__
 
 __Pound Views__
 
-  - See All Dogs: For See All Dogs, a Pound User can view the detailed information uploaded for each dog that is looking for placement. This will include dogs from their Pound and others with a status of Hold or Available.
+  - See All Dogs: For See All Dogs, a Pound user can view the detailed information uploaded for each dog that is looking for placement. This will include dogs from their Pound and others with a status of Hold or Available.
   - These dog profiles are sorted based on urgency with the view to tryin to get placement for the most in need dogs as a priority.
 
 ![All Dogs Pound](./static/images/readme/all_dogs_pound.png)
 
-  - Add a Dog: From Add a Dog, a Pound User is taken to a form whereby they can create a profile for display on the site. This form includes validation if any fields are left unpopulated. 
+  - Add a Dog: From Add a Dog, a Pound user is taken to a form whereby they can create a profile for display on the site. This form includes validation if any fields are left unpopulated. 
 
 ![Add a Profile](./static/images/readme/create_a_profile.png)
 
-  - Once a profile has been created, the Pound User will see a message to confirm that the profile has been successfully created and be taken back to the See All Dogs view so they can see the profile that has been added. 
+  - Once a profile has been created, the Pound user will see a message to confirm that the profile has been successfully created and be taken back to the See All Dogs view so they can see the profile that has been added. 
 
 ![Profile Creation](./static/images/readme/profile_sucess.png)
 
-  - My Current Dogs: From My Current Dogs, a Pound User can see all of their dogs that have a status of Hold or Available. From this view, they can individually edit or delete any of these profiles. 
+  - My Current Dogs: From My Current Dogs, a Pound user can see all of their dogs that have a status of Hold or Available. From this view, they can individually edit or delete any of these profiles. 
 
 ![My Current Dogs](./static/images/readme/my_current_dogs.png)
 
@@ -228,23 +233,7 @@ __Pound Views__
 ![Delete Confirmation](./static/images/readme/delete_confirm_request.png)
 ![Delete Success](./static/images/readme/deletion_confirmation.png)
 
- - My Previous Dogs: From My Previous Dogs, a Pound User can see all of their dogs that have a status of Reclaimed, Rehomed, PTS, Transferred to Rescue or Death Natural Causes. From this view, they can individually edit or delete any of these profiles if required.
-
-![My Previous Dogs](./static/images/readme/previous_dogs.png)
-
- - My Booked Dogs: From My Bookings, a Pound User can see all of their dogs that have a confirmed booking by a Rescue. From this view, they can individually delete a booking or confirm the collection of a dog by the Rescue.
-
-![My Booked Dogs](./static/images/readme/)
-
- - Where a Pound deletes a booking, the profile status for the dog is updated to Available and the profile will now display in the users My Current Dogs view. Upon deletion the user receives a request to confirm the rejection and notification of successful rejection upon confirmation.
-
-![Pound Booking Delete Confirm](./static/images/readme/booking_delete_confirm.png)
-
-  - Where a Pound confirms collection, the profile status for the dog is updated to Transferred to Rescue and the profile will now display in the users My Previous Dogs view.
-
-![Pound Collection Confirmation](./static/images/readme/pound_collection_confirmed.png)
-
- - My Proposed Bookings: From My Proposed Bookings, a Pound User can see all of their dogs that have a booking proposed by a Rescue. From this view, they can individually accept or reject the proposed booking.
+ - My Proposed Bookings: From My Proposed Bookings, a Pound user can see all of their dogs that have a booking proposed by a Rescue. From this view, they can individually accept or reject the proposed booking.
 
 ![Pound Proposed Bookings](./static/images/readme/pound_proposed_bookings.png)
 
@@ -254,9 +243,24 @@ __Pound Views__
 
  - Reject a Booking: Where a Pound rejects a booking, the profile status for the dog is updated to Available and the profile will now display in the users My Current Dogs view. Upon rejection the user receives a request to confirm the rejection and notification of successful rejection upon confirmation.
 
+![Pound Booking Reject Confirm](./static/images/readme/booking_reject_confirm.png)
+![Pound Booking Reject Success](./static/images/readme/booking_reject_success.png)
 
+ - My Booked Dogs: From My Bookings, a Pound user can see all of their dogs that have a confirmed booking by a Rescue. From this view, they can individually delete a booking or confirm the collection of a dog by the Rescue.
 
+![My Booked Dogs](./static/images/readme/pound_my_bookings.png)
 
+ - Where a Pound deletes a booking, the profile status for the dog is updated to Available and the profile will now display in the users My Current Dogs view. Upon deletion the user receives a request to confirm the rejection and notification of successful rejection upon confirmation.
+
+![Pound Booking Delete Confirm](./static/images/readme/booking_delete_confirm.png)
+
+  - Where a Pound confirms collection, the profile status for the dog is updated to Transferred to Rescue and the profile will now display in the users My Previous Dogs view.
+
+![Pound Collection Confirmation](./static/images/readme/pound_collection_confirmed.png)
+
+- My Previous Dogs: From My Previous Dogs, a Pound user can see all of their dogs that have a status of Reclaimed, Rehomed, PTS, Transferred to Rescue or Death Natural Causes. From this view, they can individually edit or delete any of these profiles if required.
+
+![My Previous Dogs](./static/images/readme/previous_dogs.png)
 
 __Rescue Views__
 
@@ -265,15 +269,56 @@ __Rescue Views__
 
 ![All Dogs Rescue](./static/images/readme/all_dogs_rescue.png)
 
-       - My Rescued Dogs: displays all of the dogs with a status of Transferred to Rescue for that Rescue user.
-       - My Booked Dogs: displays all of the dogs with a status of Booked where the booking party is the Rescue user.
-       - My Pro
+  - Booking Request: If the Rescue user selects Rescue Me from the See All Dogs dashboard, they are taken to a form to complete to create a booking for the specific dog selected. This form has validation and input guidance to ensure the user can successfully save their request. 
 
+![Booking Request](./static/images/readme/booking_request.png)
+
+  - Upon the booking being successfully saved, the Rescue user will receive notification of success and be returned to the See All Dogs dashboard so they can book further dogs if desired. 
+
+![Booking Success](./static/images/readme/booking_success.png)
+
+- My Proposed Bookings: From My Proposed Bookings, a Rescue User can see all of the dogs that they have proposed a booking for. From this view, they can individually edit or delete a submitted booking request if required.
+
+![Rescue Proposed Bookings](./static/images/readme/rescue_my_proposed.png)
+
+ - Edit a Booking: Where a Rescue decides to edit a booking, they are taken to a booking form prepopulated with the previous booking information. 
+
+![Edit Rescue Booking](./static/images/readme/edit_booking_form.png)
+
+ - When successfully completed and saved, the Rescue user will be notified of their successful update and returned to their dashboard to select their next action. The form will display an error to the user if the fields are not correctly populated. 
+
+ ![Edit Rescue Booking Success](./static/images/readme/rescue_booking_edit_success.png)
+
+ - Delete a Booking: Where a Rescue decides to delete a booking, the profile status for the dog is updated to Available again. Upon deletion the user receives a request to confirm the deletion and notification of successful deletion upon confirmation.
+
+![Rescue Booking Delete Confirm](./static/images/readme/rescue_delete_confirm.png)
+
+![Rescue Booking Delete Success](./static/images/readme/rescue_delete_success.png)
+
+  - My Booked Dogs: This view displays all of the dogs with a status of Booked where the booking party is the Rescue user. From this view the user can again edit or delete the booking if required or confirm collection of the dog by their Rescue.
+
+![Rescue My Bookings](./static/images/readme/rescue_my_bookings.png)
+
+ - Where a confirmed booking is edited, the status of the dog will revert to Booking Proposed again so that the Pound user can reaccept this revised booking. As above, all successful edits and deletions to bookings are notified to the user. 
+
+![Rescue Booking Update](./static/images/readme/rescue_booking_update.png)
+
+  - Where a Rescue user selects to confirm collection, the status of the dog is updated to Transferred To Rescue and will be visible to the Rescue user from their My Rescued Dogs view. Again, the user receives confirmation of this update when selected. 
+
+![Rescue Collection Confirmation](./static/images/readme/rescue_collection_confirmation.png)
+
+  - My Rescued Dogs: My Rescued Dogs shows the specific Rescue user all of the dogs with a status of Transferred to Rescue for that Rescue user.
+
+![Rescued Dogs](./static/images/readme/my_rescued_dogs.png)
+
+  - For all dashboards and users, where there is no information to be displayed this is explicitly stated to the user to avoid any confusion that the information may not be loading.
+
+![Blank Dashboard](./static/images/readme/blank_dashboard.png)
 
 ***
 ## Feature Enhancements
 
- - There are a number of feature enhancements that I believe would be beneficial to the site but which I ran out of time to try and incorporate prior to the submission deadline for this project. These include: 
+ - There are a number of feature enhancements that I believe would be beneficial to the site but which I was time constrained to try and incorporate prior to the submission deadline for this project. These include: 
 
      - Optimising the site display for viewing on mobile devices. Currently due to the tables and level of detail required this is not optimal for mobile and the site really needs to be used on a laptop or desktop device. It would have possible to exclude information from the tables to more easily suit a mobile view but this would have been compromising functionality just for visual purposes which I think would have undermined the usefulness of the site.
      - Adding conditional formatting to the Current Dogs Available for Placement dashboard to color code the urgency cell of the table and to easily enable a Rescue user to identify profiles of dogs most in need of placement. 
